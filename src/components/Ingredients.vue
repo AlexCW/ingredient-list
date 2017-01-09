@@ -46,7 +46,7 @@ ul {
                 <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
             </li>
         </ul>
-        <button v-on:click="searchRecipes()">Search</button>
+        <button class="btn btn-primary" v-on:click="searchRecipes()">Search</button>
         <div v-if="recipes.length">
             <template v-for="(recipe, index) in recipes">
                 <recipe v-bind:recipe="recipe"></recipe>
