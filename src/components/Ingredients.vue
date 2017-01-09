@@ -48,11 +48,9 @@ ul {
         </ul>
         <button v-on:click="searchRecipes()">Search</button>
         <div v-if="recipes.length">
-            <li v-for="recipe in recipes">
-              <p>Name: {{recipe.attributes.name}}</p>
-              <p>Summary: {{recipe.attributes.summary}}</p>
-              <p>Prep Time: {{recipe.attributes['prep-time']}}</p>
-            </li>
+            <template v-for="(recipe, index) in recipes">
+                <recipe v-bind:recipe="recipe"></recipe>
+            </template>
         </div>
         <div v-else>
           <p>There are currently no recipes</p>
@@ -64,10 +62,11 @@ ul {
 
 <script>
 import Lookahead from './Lookahead.vue'
+import Recipe from './Recipe.vue'
 
 export default {
   template: '#ingredients',
-  components: { 'lookahead': Lookahead },
+  components: { 'lookahead': Lookahead, 'recipe': Recipe },
   data: function () {
     return {
       alert: '',
