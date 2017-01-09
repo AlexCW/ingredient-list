@@ -70,6 +70,8 @@ export default {
           }
         }).bind('typeahead:select', function (ev, suggestion, e) {
           that.$emit('input', suggestion)
+        }).bind('typeahead:change', function (ev, suggestion, e) {
+          that.$emit('input', suggestion)
         })
     }
   },

@@ -120,7 +120,9 @@ export default {
         obj[ingredient.attributes.name] = ingredient.id
         return obj
       })
-      var ingredients = this.ingredients.map(function (a) { return options[a.text.id] })
+      var ingredients = this.ingredients.map(function (a) { return options[a.text.id] }).filter(function (a) {
+        return a !== undefined
+      })
       this.$http.post(this.src, {'ingredients': ingredients}).then((response) => {
         this.recipes = response.data.data
       }, (response) => {
