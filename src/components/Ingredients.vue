@@ -53,7 +53,7 @@ ul {
             </template>
         </div>
         <div v-else>
-          <p>There are currently no recipes</p>
+          <p class="alert alert-danger">There are currently no recipes</p>
         </div>
       </div>
     </div>
