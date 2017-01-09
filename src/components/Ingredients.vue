@@ -16,6 +16,7 @@ ul {
   cursor: pointer;
   width: 100%;
   text-align: center;
+  background: white;
 }
 
 .tt-menu h2 {
