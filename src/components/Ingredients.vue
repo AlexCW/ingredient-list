@@ -1,5 +1,13 @@
 <style>
 
+.card {
+  text-align: center;
+}
+
+.search {
+  margin-bottom: 5px;
+}
+
 ul {
   list-style: none;
 }
@@ -22,11 +30,11 @@ ul {
 </style>
 
 <template>
-<div class="col-sm-6">
+<div class="col-sm-7">
   <div id="ingredients">
-    <h1>Ingredients</h1>
     <div class="alert alert-danger" v-if="alert">{{alert}}</div>
     <div class="card">
+        <h1>Ingredients</h1>
         <template v-if="images.length">
           <template v-for="image in images">
             <img class="card-img-top" height="200" width="300" v-bind:src="image" alt="Card image cap">
@@ -46,7 +54,7 @@ ul {
                 <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
             </li>
         </ul>
-        <button class="btn btn-primary" v-on:click="searchRecipes()">Search</button>
+        <button class="btn btn-primary search" v-on:click="searchRecipes()">Search</button>
         <div v-if="recipes.length">
             <template v-for="(recipe, index) in recipes">
                 <recipe v-bind:recipe="recipe"></recipe>
