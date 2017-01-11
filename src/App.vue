@@ -13,10 +13,7 @@
       </div>
     </nav>
     <div class="container">
-      <div class="col-sm-3">
-
-      </div>
-      <div class="col-sm-9">
+      <div class="col-sm-12">
         <router-view></router-view>
       </div>
     </div>

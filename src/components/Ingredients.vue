@@ -31,40 +31,42 @@ ul {
 </style>
 
 <template>
-<div class="col-sm-7">
-  <div id="ingredients">
-    <div class="alert alert-danger" v-if="alert">{{alert}}</div>
-    <div class="card">
-        <h1>Ingredients</h1>
-        <template v-if="images.length">
-          <template v-for="image in images">
-            <img class="card-img-top" height="200" width="300" v-bind:src="image" alt="Card image cap">
-          </template>
-        </template>
-        <template v-else>
-            <img class="card-img-top" height="200" width="300" src="https://img.klik-eat.com/inc/upload/images/restaurant/logos/Placeholder/Placeholder%20-%20food.jpg" alt="Card image cap"/>
-        </template>
-        <div class="card-block">
-            <h4 class="card-title">Your Ingredients List</h4>
-            <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
-                <lookahead keep-alive v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
-                <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
-                <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
-            </li>
-        </ul>
-        <button class="btn btn-primary search" v-on:click="searchRecipes()">Search</button>
-        <div v-if="recipes.length">
-            <template v-for="(recipe, index) in recipes">
-                <recipe v-bind:recipe="recipe"></recipe>
+<div>
+  <div class="col-sm-8 col-sm-offset-2">
+    <div id="ingredients">
+      <div class="alert alert-danger" v-if="alert">{{alert}}</div>
+      <div class="card">
+          <h1>Ingredients</h1>
+          <template v-if="images.length">
+            <template v-for="image in images">
+              <img class="card-img-top" height="200" width="300" v-bind:src="image" alt="Card image cap">
             </template>
-        </div>
-        <div v-else>
-          <p class="alert alert-danger">There are currently no recipes</p>
+          </template>
+          <template v-else>
+              <img class="card-img-top" height="200" width="300" src="https://img.klik-eat.com/inc/upload/images/restaurant/logos/Placeholder/Placeholder%20-%20food.jpg" alt="Card image cap"/>
+          </template>
+          <div class="card-block">
+              <h4 class="card-title">Your Ingredients List</h4>
+              <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+              <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
+                  <lookahead keep-alive v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
+                  <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
+                  <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
+              </li>
+          </ul>
+          <button class="btn btn-primary search" v-on:click="searchRecipes()">Search</button>
         </div>
       </div>
+    </div>
+    <div v-if="recipes.length">
+        <template v-for="(recipe, index) in recipes">
+            <recipe v-bind:recipe="recipe"></recipe>
+        </template>
+    </div>
+    <div class="col-sm-7 col-sm-offset-3" v-else>
+      <p class="alert alert-danger">There are currently no recipes</p>
     </div>
   </div>
 </template>
