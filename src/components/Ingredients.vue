@@ -62,7 +62,7 @@ ul {
     </div>
     <div class="recipes" v-if="recipes.length">
         <template v-for="(recipe, index) in recipes">
-            <recipe keep-alive v-bind:recipe="recipe" v-bind:uploads="uploads"></recipe>
+            <recipe keep-alive v-bind:recipe="recipe" v-bind:included="included" v-bind:ingredients="ingredients"></recipe>
         </template>
     </div>
     <div class="col-sm-7 col-sm-offset-3" v-else>
@@ -93,7 +93,7 @@ export default {
       src: 'http://api.eataway.co.uk/recipes/ingredients/suggest',
       options: {},
       recipes: {},
-      uploads: {}
+      included: {}
     }
   },
   created: function () {
@@ -129,7 +129,7 @@ export default {
       this.recipes = {}
       this.$http.post(this.src, {'ingredients': ingredients}).then((response) => {
         this.recipes = response.data.data
-        this.uploads = response.data.included
+        this.included = response.data.included
       }, (response) => {
       }).bind(this)
     },
