@@ -5,7 +5,10 @@
       <div class="card-block">
         <h4 class="card-title">{{recipe.attributes.name}}</h4>
         <p class="card-text">{{recipe.attributes.summary}}</p>
-        <span class="card-link">{{recipe.attributes['prep-time']}}</span>
+        <div class="card-block">
+          <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['prep-time']}}</span>
+          <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['cooking-time']}}</span>
+        </div>
         <a href="#" class="btn btn-primary">View Recipe</a>
       </div>
     </div>
@@ -13,6 +16,9 @@
 </template>
 
 <style>
+  #recipe {
+    padding-bottom: 5px;
+  }
   #recipe:nth-child(4n+1){
       clear:left
   }

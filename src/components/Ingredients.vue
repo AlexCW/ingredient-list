@@ -51,7 +51,7 @@ ul {
           </div>
           <ul class="list-group list-group-flush">
               <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
-                  <lookahead keep-alive v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
+                  <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
                   <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
                   <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
               </li>
