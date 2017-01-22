@@ -15,7 +15,7 @@
     <div class="container">
       <div class="col-sm-12">
         <router-view></router-view>
-        <modal :show.sync="showModal" @close="showModal = false"></modal>
+        <modal :show.sync="modal.show" v-bind:title="modal.title" v-bind:data="modal.data" @close="modal.show = false"></modal>
       </div>
     </div>
   </div>

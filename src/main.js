@@ -27,7 +27,13 @@ new Vue({
   router,
   components: {'modal': Modal},
   data: {
-    showModal: false
+    modal: {
+      data: {
+        table: {}
+      },
+      title: '',
+      show: false
+    }
   },
   ...App
 }).$mount('#app')

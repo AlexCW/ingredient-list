@@ -67,7 +67,17 @@ export default {
       }
     },
     showIngredients: function () {
-      this.$root.showModal = true
+      this.$root.modal.data.table.headers = ['Name']
+      this.$root.modal.data.table.rows = this.buildIngredientsTable()
+      this.$root.modal.show = true
+      this.$root.modal.title = 'Ingredients'
+    },
+    buildIngredientsTable: function () {
+      var ingredients = {}
+      this.recipe.ingredients.forEach(function (ingredient) {
+        ingredients[ingredient.attributes.name] = {}
+      })
+      return ingredients
     }
   },
   props: ['recipe', 'included'],

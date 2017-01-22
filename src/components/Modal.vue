@@ -62,6 +62,18 @@
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.table {
+  border: 1px solid;
+}
+
+.table tr {
+  border: 1px solid;
+}
+
+.table tr td, .table tr th {
+  padding: 5px;
+}
 </style>
 
 <template class="modal-template">
@@ -69,18 +81,18 @@
       <div class="modal-container" @click.stop>
 
           <div class="modal-header">
-              <h3>New Post</h3>
+              <h3>{{title}}</h3>
           </div>
 
           <div class="modal-body">
-              <label class="form-label">
-                  Title
-                  <input class="form-control">
-              </label>
-              <label class="form-label">
-                  Body
-                  <textarea rows="5" class="form-control"></textarea>
-              </label>
+              <table v-if="data.table" class="table">
+                  <tr v-if="data.table.headers">
+                      <th v-for="header in data.table.headers">{{header}}</th>
+                  </tr>
+                  <tr v-for="(item, index) in data.table.rows">
+                      <td>{{index}}</td>
+                  </tr>
+              </table>
           </div>
 
           <div class="modal-footer text-right">
@@ -95,7 +107,22 @@
 <script>
 export default {
   template: '.modal-template',
-  props: ['show'],
+  props: {
+    show: {
+      default: false,
+      type: Boolean
+    },
+    data: {
+      default: {
+        table: {}
+      },
+      type: Object
+    },
+    title: {
+      default: 'Title',
+      type: String
+    }
+  },
   methods: {},
   tag: 'modal'
 }
