@@ -8,7 +8,7 @@
         <div class="card-block">
           <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['prep-time']}}</span>
           <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['cooking-time']}}</span>
-          <span class="card-link"><i class="glyphicon glyphicon-grain"></i>&nbsp;{{recipe.ingredients.length}}</span>
+          <span class="card-link" v-on:click="showIngredients()"><i class="glyphicon glyphicon-grain"></i>&nbsp;{{recipe.ingredients.length}}</span>
         </div>
         <a href="#" class="btn btn-primary">View Recipe</a>
       </div>
@@ -65,6 +65,9 @@ export default {
       if (ingredients.length > 0) {
         this.recipe.ingredients = ingredients
       }
+    },
+    showIngredients: function () {
+      this.$root.showModal = true
     }
   },
   props: ['recipe', 'included'],
