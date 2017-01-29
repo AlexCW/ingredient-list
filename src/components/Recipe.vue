@@ -8,7 +8,7 @@
         <div class="card-block">
           <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['prep-time']}}</span>
           <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['cooking-time']}}</span>
-          <span class="card-link" v-on:click="showIngredients()"><i class="glyphicon glyphicon-grain"></i>&nbsp;{{recipe.ingredients.length}}</span>
+          <span v-if="recipe.relationships.ingredients.data.length" class="card-link" v-on:click="showIngredients()"><i class="glyphicon glyphicon-grain">{{recipe.relationships.ingredients.data.length}}</i>&nbsp;</span>
         </div>
         <a href="#" class="btn btn-primary">View Recipe</a>
       </div>
@@ -29,11 +29,9 @@
 export default {
   created: function () {
     this.getUploads()
-    this.getIngredients()
   },
   mounted: function () {
     this.getUploads()
-    this.getIngredients()
   },
   methods: {
     getRelationshipIdentifiers: function (key) {
@@ -42,9 +40,14 @@ export default {
       })
     },
     getIncludedData: function (ids) {
-      return this.included.filter(function (u) {
-        return ids.indexOf(u.id) > -1
+      this.included.map(function (u) {
+        var indexId = ids.indexOf(u.id)
+        if (indexId > -1) {
+          ids[indexId] = u
+        }
+        return u
       })
+      return ids
     },
     getUploads: function () {
       var ids = this.getRelationshipIdentifiers('uploads')
@@ -67,7 +70,8 @@ export default {
       }
     },
     showIngredients: function () {
-      this.$root.modal.data.table.headers = ['Name']
+      this.getIngredients()
+      this.$root.modal.data.table.headers = ['Name', 'Amount']
       this.$root.modal.data.table.rows = this.buildIngredientsTable()
       this.$root.modal.show = true
       this.$root.modal.title = 'Ingredients'
@@ -75,7 +79,9 @@ export default {
     buildIngredientsTable: function () {
       var ingredients = {}
       this.recipe.ingredients.forEach(function (ingredient) {
-        ingredients[ingredient.attributes.name] = {}
+        ingredients[ingredient.attributes.name] = [
+          ingredient.attributes.amount + ingredient.attributes.measurement
+        ]
       })
       return ingredients
     }

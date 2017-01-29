@@ -63,7 +63,7 @@
   transform: scale(1.1);
 }
 
-.table {
+.table table {
   border: 1px solid;
 }
 
@@ -89,17 +89,18 @@
                   <tr v-if="data.table.headers">
                       <th v-for="header in data.table.headers">{{header}}</th>
                   </tr>
-                  <tr v-for="(item, index) in data.table.rows">
-                      <td>{{index}}</td>
+                  <tr v-for="(row, name) in data.table.rows">
+                      <td>{{name}}</td>
+                      <td v-for="column in row">{{column}}</td>
                   </tr>
               </table>
           </div>
 
-          <div class="modal-footer text-right">
+          <!-- <div class="modal-footer text-right">
               <button class="modal-default-button" @click="savePost()">
                   Save
               </button>
-          </div>
+          </div> -->
       </div>
   </div>
 </template>
@@ -107,22 +108,7 @@
 <script>
 export default {
   template: '.modal-template',
-  props: {
-    show: {
-      default: false,
-      type: Boolean
-    },
-    data: {
-      default: {
-        table: {}
-      },
-      type: Object
-    },
-    title: {
-      default: 'Title',
-      type: String
-    }
-  },
+  props: ['show', 'data', 'title'],
   methods: {},
   tag: 'modal'
 }
