@@ -50,7 +50,7 @@ ul {
               <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
           </div>
           <select v-model="difficulty">
-            <option value="Select Difficulty"></option>
+            <option value="">Select Difficulty</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
