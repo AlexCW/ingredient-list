@@ -49,6 +49,12 @@ ul {
               <h4 class="card-title">Your Ingredients List</h4>
               <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
           </div>
+          <select v-model="difficulty">
+            <option value="Select Difficulty"></option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
           <ul class="list-group list-group-flush">
               <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
                   <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
@@ -94,7 +100,8 @@ export default {
       options: {},
       recipes: {},
       included: {},
-      myIngredients: []
+      myIngredients: [],
+      difficulty: ''
     }
   },
   created: function () {
@@ -129,7 +136,7 @@ export default {
       })
       this.myIngredients = ingredients
       this.recipes = {}
-      this.$http.post(this.src, {'ingredients': ingredients}).then((response) => {
+      this.$http.post(this.src, {'ingredients': ingredients, 'difficulty': this.difficulty}).then((response) => {
         this.recipes = response.data.data
         this.included = response.data.included
       }, (response) => {

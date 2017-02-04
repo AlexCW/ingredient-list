@@ -86,7 +86,6 @@ export default {
           value: ingredient.attributes.amount + ingredient.attributes.measurement
         }
       })
-      console.log(ingredients)
       return ingredients
     }
   },
