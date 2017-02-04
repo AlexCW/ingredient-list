@@ -34,6 +34,8 @@
 
 .modal-body {
   margin: 20px 0;
+  height: 500px;
+  overflow-y: auto;
 }
 
 .modal-default-button {
@@ -91,7 +93,7 @@
                   </tr>
                   <tr v-for="(row, name) in data.table.rows">
                       <td>{{name}}</td>
-                      <td v-for="column in row">{{column}}</td>
+                      <td v-bind:style="row.style">{{row.value}}</td>
                   </tr>
               </table>
           </div>

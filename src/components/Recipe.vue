@@ -78,15 +78,19 @@ export default {
     },
     buildIngredientsTable: function () {
       var ingredients = {}
+      var userIngredients = this.ingredients
       this.recipe.ingredients.forEach(function (ingredient) {
-        ingredients[ingredient.attributes.name] = [
-          ingredient.attributes.amount + ingredient.attributes.measurement
-        ]
+        var background = userIngredients.indexOf(ingredient.id) > -1 ? 'green' : ''
+        ingredients[ingredient.attributes.name] = {
+          style: {background: background},
+          value: ingredient.attributes.amount + ingredient.attributes.measurement
+        }
       })
+      console.log(ingredients)
       return ingredients
     }
   },
-  props: ['recipe', 'included'],
+  props: ['recipe', 'included', 'ingredients'],
   template: '#recipes'
 }
 </script>
