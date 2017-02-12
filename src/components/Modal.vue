@@ -87,6 +87,7 @@
           </div>
 
           <div class="modal-body">
+              <img v-if="data.image" v-bind:src="data.image.src"/>
               <table v-if="data.table" class="table">
                   <tr v-if="data.table.headers">
                       <th v-for="header in data.table.headers">{{header}}</th>

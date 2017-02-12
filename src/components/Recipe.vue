@@ -1,7 +1,7 @@
 <template>
   <div id="recipe" class="col-sm-3">
     <div class="card">
-      <img class="card-img-top img-thumbnail rounded" v-bind:src="recipe.upload" alt="Card image cap">
+      <img class="card-img-top img-thumbnail rounded" v-bind:src="recipe.upload" alt="Card image cap" v-on:click="viewImage()">
       <div class="card-block">
         <h4 class="card-title">{{recipe.attributes.name}}</h4>
         <p class="card-text">{{recipe.attributes.summary}}</p>
@@ -28,10 +28,10 @@
 <script>
 export default {
   created: function () {
-    this.getUploads()
+    this.recipe.upload = this.getUploads('large')
   },
   mounted: function () {
-    this.getUploads()
+    this.recipe.upload = this.getUploads('large')
   },
   methods: {
     getRelationshipIdentifiers: function (key) {
@@ -49,15 +49,15 @@ export default {
       })
       return ids
     },
-    getUploads: function () {
+    getUploads: function (size) {
       var ids = this.getRelationshipIdentifiers('uploads')
 
       var uploads = this.getIncludedData(ids)
 
       if (uploads.length > 0) {
-        this.recipe.upload = uploads[0]['attributes']['url'] + '/large.jpg'
+        return uploads[0]['attributes']['url'] + '/' + size + '.jpg'
       } else {
-        this.recipe.upload = 'http://cdn.jamieoliver.com/recipe-database/430_575/0x0zIFPCqlsBq04WOaAyic.jpg'
+        return 'http://cdn.jamieoliver.com/recipe-database/430_575/0x0zIFPCqlsBq04WOaAyic.jpg'
       }
     },
     getIngredients: function () {
@@ -87,6 +87,13 @@ export default {
         }
       })
       return ingredients
+    },
+    viewImage: function () {
+      this.$root.modal.show = true
+      this.$root.modal.title = this.recipe.attributes.name
+      this.$root.modal.data.image = {
+        'src': this.getUploads('largest')
+      }
     }
   },
   props: ['recipe', 'included', 'ingredients'],
