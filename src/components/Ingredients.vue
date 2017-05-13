@@ -64,7 +64,7 @@ ul {
               <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
           </div>
           <div class="row filters">
-              <v-select placeholder="Select Difficulty" :options="difficulties"></v-select>
+              <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
           </div>
           <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
@@ -154,7 +154,7 @@ export default {
         })
         this.myIngredients = ingredients
         this.recipes = {}
-        this.$http.post(this.src, {'ingredients': ingredients, 'difficulty': this.difficulty}).then((response) => {
+        this.$http.post(this.src, {'ingredients': ingredients, 'difficulty': this.difficulty.value}).then((response) => {
           this.recipes = response.data.data
           this.included = response.data.included
         }, (response) => {
