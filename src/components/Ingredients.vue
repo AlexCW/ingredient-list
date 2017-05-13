@@ -1,10 +1,22 @@
 <style>
 
+body {
+  background: url('http://www.foodnavigator-usa.com/var/plain_site/storage/images/publications/food-beverage-nutrition/foodnavigator-usa.com/suppliers2/wild-expands-natural-flavors-showcases-colors-wellness-ingredients/10283344-1-eng-GB/WILD-expands-natural-flavors-showcases-colors-wellness-ingredients.jpg') no-repeat;
+  background-attachment: fixed;
+  font-family: 'ABeeZee', sans-serif;
+  padding-bottom: 150px;
+}
+
 .card {
   text-align: center;
 }
 
 .search {
+  margin-bottom: 5px;
+  width:100%;
+}
+
+.row.filters {
   margin-bottom: 5px;
 }
 
@@ -28,6 +40,16 @@ ul {
   border: 1px solid lightgray;
   border-radius: 2px;
 }
+
+.row .v-select {
+  background-color: white;
+  width:33%;
+}
+
+.row .v-select .selected-tag {
+  background-color: none !important;
+  border: none;
+}
 </style>
 
 <template>
@@ -36,43 +58,39 @@ ul {
     <div id="ingredients">
       <div class="alert alert-danger" v-if="alert">{{alert}}</div>
       <div class="card">
-          <h1>Ingredients</h1>
-          <template v-if="images.length">
-            <template v-for="image in images">
-              <img class="card-img-top" height="200" width="300" v-bind:src="image" alt="Card image cap">
-            </template>
-          </template>
-          <template v-else>
-              <img class="card-img-top" height="200" width="300" src="https://img.klik-eat.com/inc/upload/images/restaurant/logos/Placeholder/Placeholder%20-%20food.jpg" alt="Card image cap"/>
-          </template>
+          <h1>Your Pantry</h1>
           <div class="card-block">
-              <h4 class="card-title">Your Ingredients List</h4>
               <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
           </div>
-          <select v-model="difficulty">
-            <option value="">Select Difficulty</option>
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-          <ul class="list-group list-group-flush">
-              <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
-                  <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
-                  <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
-                  <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
-              </li>
-          </ul>
-          <button class="btn btn-primary search" v-on:click="searchRecipes()">Search</button>
+          <div class="row filters">
+            <div class="col-sm-8 col-sm-offset-2">
+              <v-select placeholder="Select Difficulty" :options="difficulties"></v-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+              <ul class="list-group list-group-flush">
+                  <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
+                      <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
+                      <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
+                      <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
+                  </li>
+              </ul>
+              <button class="btn btn-primary search" v-on:click="searchRecipes()">Search</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="recipes" v-if="recipes.length">
-        <template v-for="(recipe, index) in recipes">
-            <recipe keep-alive v-bind:recipe="recipe" v-bind:included="included" v-bind:ingredients="myIngredients"></recipe>
-        </template>
-    </div>
-    <div class="col-sm-7 col-sm-offset-3" v-else>
-      <p class="alert alert-danger">There are currently no recipes</p>
+    <div class="row">
+      <div class="recipes" v-if="recipes.length">
+          <template v-for="(recipe, index) in recipes">
+              <recipe keep-alive v-bind:recipe="recipe" v-bind:included="included" v-bind:ingredients="myIngredients"></recipe>
+          </template>
+      </div>
+      <div class="col-sm-8 col-sm-offset-2" v-else>
+        <p class="alert alert-danger">There are currently no recipes</p>
+      </div>
     </div>
   </div>
 </template>
@@ -80,10 +98,11 @@ ul {
 <script>
 import Lookahead from './Lookahead.vue'
 import Recipe from './Recipe.vue'
+import vSelect from 'vue-select'
 
 export default {
   template: '#ingredients',
-  components: { 'lookahead': Lookahead, 'recipe': Recipe },
+  components: { 'lookahead': Lookahead, 'recipe': Recipe, 'vSelect': vSelect },
   data: function () {
     return {
       alert: '',
@@ -101,7 +120,8 @@ export default {
       recipes: {},
       included: {},
       myIngredients: [],
-      difficulty: ''
+      difficulty: '',
+      difficulties: [{value: 'easy', label: 'Easy'}, {value: 'medium', label: 'Medium'}, {value: 'hard', label: 'Hard'}]
     }
   },
   created: function () {
@@ -126,21 +146,23 @@ export default {
       })
     },
     searchRecipes: function () {
-      var options = this.options.data.reduce(function (reduceObject, ingredient) {
-        var obj = reduceObject.hasOwnProperty('attributes') ? {} : reduceObject
-        obj[ingredient.attributes.name] = ingredient.id
-        return obj
-      })
-      var ingredients = this.ingredients.map(function (a) { return options[a.text.id] }).filter(function (a) {
-        return a !== undefined
-      })
-      this.myIngredients = ingredients
-      this.recipes = {}
-      this.$http.post(this.src, {'ingredients': ingredients, 'difficulty': this.difficulty}).then((response) => {
-        this.recipes = response.data.data
-        this.included = response.data.included
-      }, (response) => {
-      }).bind(this)
+      if (typeof this.options.data !== undefined) {
+        var options = this.options.data.reduce(function (reduceObject, ingredient) {
+          var obj = reduceObject.hasOwnProperty('attributes') ? {} : reduceObject
+          obj[ingredient.attributes.name] = ingredient.id
+          return obj
+        })
+        var ingredients = this.ingredients.map(function (a) { return options[a.text.id] }).filter(function (a) {
+          return a !== undefined
+        })
+        this.myIngredients = ingredients
+        this.recipes = {}
+        this.$http.post(this.src, {'ingredients': ingredients, 'difficulty': this.difficulty}).then((response) => {
+          this.recipes = response.data.data
+          this.included = response.data.included
+        }, (response) => {
+        }).bind(this)
+      }
     },
     getOptions: function (callback) {
       var that = this

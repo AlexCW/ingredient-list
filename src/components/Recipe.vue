@@ -18,10 +18,19 @@
 
 <style>
   #recipe {
+    margin-top: 5px;
     padding-bottom: 5px;
   }
   #recipe:nth-child(4n+1){
       clear:left
+  }
+
+  #recipe .card {
+    background: white;
+    border: 1px solid lightgray;
+    padding: 15px;
+    height:400px;
+    border-radius: 5px;
   }
 </style>
 
@@ -81,9 +90,10 @@ export default {
       var userIngredients = this.ingredients
       this.recipe.ingredients.forEach(function (ingredient) {
         var background = userIngredients.indexOf(ingredient.id) > -1 ? 'green' : ''
+
         ingredients[ingredient.attributes.name] = {
           style: {background: background},
-          value: ingredient.attributes.amount + ingredient.attributes.measurement
+          value: ingredient.attributes.amount + (ingredient.attributes.measurement !== 'total' ? ingredient.attributes.measurement : '')
         }
       })
       return ingredients
