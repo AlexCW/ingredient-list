@@ -42,6 +42,7 @@ ul {
 }
 
 .row .v-select {
+  display: inline-block;
   background-color: white;
   width:33%;
 }
@@ -63,9 +64,7 @@ ul {
               <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
           </div>
           <div class="row filters">
-            <div class="col-sm-8 col-sm-offset-2">
               <v-select placeholder="Select Difficulty" :options="difficulties"></v-select>
-            </div>
           </div>
           <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
@@ -123,8 +122,6 @@ export default {
       difficulty: '',
       difficulties: [{value: 'easy', label: 'Easy'}, {value: 'medium', label: 'Medium'}, {value: 'hard', label: 'Hard'}]
     }
-  },
-  created: function () {
   },
   methods: {
     addRow: function (index, e) {
