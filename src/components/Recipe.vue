@@ -42,6 +42,14 @@ export default {
   mounted: function () {
     this.recipe.upload = this.getUploads('large')
   },
+  computed: {
+    modal: function () {
+      return this.$root.$children.filter(function (child) {
+        console.log(child)
+        return child.type === 'modal'
+      }).pop()
+    }
+  },
   methods: {
     getRelationshipIdentifiers: function (key) {
       return this.recipe.relationships[key].data.map(function (u) {
@@ -80,10 +88,11 @@ export default {
     },
     showIngredients: function () {
       this.getIngredients()
-      this.$root.modal.data.table.headers = ['Name', 'Amount']
-      this.$root.modal.data.table.rows = this.buildIngredientsTable()
-      this.$root.modal.show = true
-      this.$root.modal.title = 'Ingredients'
+      this.modal.resetProperties()
+      this.modal.table.headers = ['Name', 'Amount']
+      this.modal.table.rows = this.buildIngredientsTable()
+      this.$root.showModal = true
+      this.modal.title = 'Ingredients'
     },
     buildIngredientsTable: function () {
       var ingredients = {}
@@ -99,9 +108,10 @@ export default {
       return ingredients
     },
     viewImage: function () {
-      this.$root.modal.show = true
-      this.$root.modal.title = this.recipe.attributes.name
-      this.$root.modal.data.image = {
+      this.modal.resetProperties()
+      this.$root.showModal = true
+      this.modal.title = this.recipe.attributes.name
+      this.modal.image = {
         'src': this.getUploads('largest')
       }
     }

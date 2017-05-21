@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import Ingredients from './components/Ingredients.vue'
 import App from './App'
-import Modal from './components/Modal.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
@@ -25,15 +24,5 @@ const router = new VueRouter({
 
 new Vue({
   router,
-  components: {'modal': Modal},
-  data: {
-    modal: {
-      data: {
-        table: {}
-      },
-      title: '',
-      show: false
-    }
-  },
   ...App
 }).$mount('#app')

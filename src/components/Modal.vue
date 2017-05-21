@@ -79,7 +79,7 @@
 </style>
 
 <template class="modal-template">
-  <div class="modal-mask" v-show="show" @click="$emit('close')" transition="modal">
+  <div class="modal-mask" v-show="show" @click="closeModal" transition="modal">
       <div class="modal-container" @click.stop>
 
           <div class="modal-header">
@@ -87,12 +87,12 @@
           </div>
 
           <div class="modal-body">
-              <img v-if="data.image" v-bind:src="data.image.src"/>
-              <table v-if="data.table" class="table">
-                  <tr v-if="data.table.headers">
-                      <th v-for="header in data.table.headers">{{header}}</th>
+              <img v-if="image" v-bind:src="image.src"/>
+              <table v-if="table" class="table">
+                  <tr v-if="table.headers">
+                      <th v-for="header in table.headers">{{header}}</th>
                   </tr>
-                  <tr v-for="(row, name) in data.table.rows">
+                  <tr v-for="(row, name) in table.rows">
                       <td>{{name}}</td>
                       <td v-bind:style="row.style">{{row.value}}</td>
                   </tr>
@@ -111,8 +111,28 @@
 <script>
 export default {
   template: '.modal-template',
-  props: ['show', 'data', 'title'],
-  methods: {},
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function () {
+    return {
+      image: {},
+      type: 'modal',
+      table: {},
+      title: ''
+    }
+  },
+  methods: {
+    resetProperties: function () {
+      Object.assign(this.$data, this.$options.data.call(this))
+    },
+    closeModal: function () {
+      this.$root.showModal = false
+    }
+  },
   tag: 'modal'
 }
 

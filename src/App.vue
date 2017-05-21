@@ -15,8 +15,17 @@
     <div class="container">
       <div class="col-sm-12">
         <router-view></router-view>
-        <modal :show.sync="modal.show" v-bind:title="modal.title" v-bind:data="modal.data" @close="modal.show = false"></modal>
+        <modal :show.sync="showModal" @close="showModal = false"></modal>
       </div>
     </div>
   </div>
 </template>
+<script>
+  import Modal from './components/Modal.vue'
+  export default {
+    components: {'modal': Modal},
+    data: {
+      showModal: false
+    }
+  }
+</script>
