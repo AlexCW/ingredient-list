@@ -6,6 +6,8 @@ import App from './App'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
+import './styles/app.scss'
+
 window.$ = window.jQuery = require('jquery')
 
 Vue.use(VueResource)

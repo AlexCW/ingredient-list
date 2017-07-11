@@ -1,16 +1,17 @@
 <template>
   <div id="recipe" class="col-sm-3">
     <div class="card">
-      <img class="card-img-top img-thumbnail rounded" v-bind:src="recipe.upload" alt="Card image cap" v-on:click="viewImage()">
-      <div class="card-block">
-        <h4 class="card-title">{{recipe.attributes.name}}</h4>
-        <p class="card-text">{{recipe.attributes.summary}}</p>
+      <div class="card-body">
+        <img class="card-img-top img-thumbnail rounded" v-bind:src="recipe.upload" alt="Card image cap" v-on:click="viewImage()">
         <div class="card-block">
-          <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['prep-time']}}</span>
-          <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['cooking-time']}}</span>
-          <span v-if="recipe.relationships.ingredients.data.length" class="card-link" v-on:click="showIngredients()"><i class="glyphicon glyphicon-grain">{{recipe.relationships.ingredients.data.length}}</i>&nbsp;</span>
+          <h4 class="card-title">{{recipe.attributes.name}}</h4>
+          <div class="card-block">
+            <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['prep-time']}}</span>
+            <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['cooking-time']}}</span>
+            <span v-if="recipe.relationships.ingredients.data.length" class="card-link" v-on:click="showIngredients()"><i class="glyphicon glyphicon-grain">{{recipe.relationships.ingredients.data.length}}</i>&nbsp;</span>
+          </div>
+          <a v-if="recipe.attributes['external-url']" v-bind:href="recipe.attributes['external-url']" target="_blank" class="btn btn-primary">View Recipe</a>
         </div>
-        <a v-if="recipe.attributes['external-url']" v-bind:href="recipe.attributes['external-url']" target="_blank" class="btn btn-primary">View Recipe</a>
       </div>
     </div>
   </div>
@@ -20,17 +21,6 @@
   #recipe {
     margin-top: 5px;
     padding-bottom: 5px;
-  }
-  #recipe:nth-child(4n+1){
-      clear:left
-  }
-
-  #recipe .card {
-    background: white;
-    border: 1px solid lightgray;
-    padding: 15px;
-    height:400px;
-    border-radius: 5px;
   }
 </style>
 

@@ -1,0 +1,16 @@
+@import 'base';
+@import 'general';
+@import 'typography';
+
+//Mixins
+@import 'mixins/center';
+
+//Modules
+@import 'modules/card';
+@import 'modules/modal';
+
+.container {
+	border-top: 5px solid #424242;
+	background: #f8f8f8;
+	padding-bottom: 20%;
+}

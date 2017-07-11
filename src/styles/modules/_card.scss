@@ -1,0 +1,35 @@
+.card {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,.06);
+  height:400px;
+  text-align: center;
+}
+
+.card:nth-child(4n+1){
+      clear:left
+  }
+
+.card .card-body{
+  background: white;
+  height: 400px;
+  position: relative;
+}
+
+.card .card-body img {
+	border: none;
+	padding: 0px;
+	width: 100%;
+}
+
+.card .card-body .card-block {
+  padding: 10px;
+}
+
+.card .card-body .card-block .btn {
+  background: #2e516f;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
