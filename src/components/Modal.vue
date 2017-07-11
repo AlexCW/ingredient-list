@@ -18,12 +18,7 @@
                   </tr>
               </table>
           </div>
-
-          <!-- <div class="modal-footer text-right">
-              <button class="modal-default-button" @click="savePost()">
-                  Save
-              </button>
-          </div> -->
+          
       </div>
   </div>
 </template>

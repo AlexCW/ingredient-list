@@ -8,9 +8,23 @@
 //Modules
 @import 'modules/card';
 @import 'modules/modal';
+@import 'modules/select';
 
 .container {
 	border-top: 5px solid #424242;
 	background: #f8f8f8;
 	padding-bottom: 20%;
+}
+
+.search {
+  margin-bottom: 5px;
+  width:100%;
+}
+
+.row.filters {
+  margin-bottom: 5px;
+}
+
+#ingredients {
+  text-align: center;
 }

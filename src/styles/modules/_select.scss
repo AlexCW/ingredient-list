@@ -1,0 +1,24 @@
+.tt-menu {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  background: white;
+}
+
+.tt-menu h2 {
+  font-size: 100%;
+  margin: 5px;
+}
+
+.tt-suggestion.tt-selectable{
+  border: 1px solid lightgray;
+  border-radius: 2px;
+}
+.row .v-select {
+  background-color: white;
+}
+
+.row .v-select .selected-tag {
+  background-color: none !important;
+  border: none;
+}

@@ -35,7 +35,6 @@ export default {
   computed: {
     modal: function () {
       return this.$root.$children.filter(function (child) {
-        console.log(child)
         return child.type === 'modal'
       }).pop()
     }
