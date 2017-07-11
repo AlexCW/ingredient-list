@@ -1,20 +1,5 @@
 <style>
 
-body {
-  background: url('http://www.foodnavigator-usa.com/var/plain_site/storage/images/publications/food-beverage-nutrition/foodnavigator-usa.com/suppliers2/wild-expands-natural-flavors-showcases-colors-wellness-ingredients/10283344-1-eng-GB/WILD-expands-natural-flavors-showcases-colors-wellness-ingredients.jpg') no-repeat;
-  background-attachment: fixed;
-  font-family: 'ABeeZee', sans-serif;
-  padding-bottom: 150px;
-}
-
-ul {
-  list-style: none;
-}
-
-.card {
-  text-align: center;
-}
-
 .search {
   margin-bottom: 5px;
   width:100%;
@@ -49,27 +34,33 @@ ul {
   background-color: none !important;
   border: none;
 }
+
+#ingredients {
+  text-align: center;
+}
 </style>
 
 <template>
 <div>
-  <div class="col-sm-8 col-sm-offset-2">
+  <div class="col-sm-10 col-sm-offset-1">
     <div id="ingredients">
       <div class="alert alert-danger" v-if="alert">{{alert}}</div>
-      <div class="card">
           <h1>Your Pantry</h1>
           <div class="card-block">
               <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
           </div>
           <div class="row filters">
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <input type="text" class="form-control" v-model="prepTime" placeholder="Prep Time"/>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <input type="text" class="form-control" v-model="cookingTime" placeholder="Cooking Time"/>
+              </div>
+              <div class="col-lg-3">
+                <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
               </div>
           </div>
           <div class="row">
@@ -85,7 +76,6 @@ ul {
             </div>
           </div>
         </div>
-      </div>
     </div>
     <div class="row">
       <div class="recipes" v-if="recipes.length">
@@ -128,8 +118,17 @@ export default {
       cookingTime: '',
       prepTime: '',
       difficulty: '',
-      difficulties: [{value: 'easy', label: 'Easy'}, {value: 'medium', label: 'Medium'}, {value: 'hard', label: 'Hard'}]
+      difficulties: [{value: 'easy', label: 'Easy'}, {value: 'medium', label: 'Medium'}, {value: 'hard', label: 'Hard'}],
+      cuisines: []
     }
+  },
+  created: function () {
+    this.$http.get('http://api.eataway.co.uk/cuisines').then((response) => {
+      this.cuisines = response.data.data.map(function (cuisine) {
+        return {value: cuisine.id, label: cuisine.attributes.name}
+      })
+    }, (response) => {
+    }).bind(this)
   },
   methods: {
     addRow: function (index, e) {
@@ -184,12 +183,16 @@ export default {
         options['cooking-time-max'] = this.cookingTime
       }
 
+      if (this.cuisine) {
+        options['cuisine'] = this.cuisine.value
+      }
+
       return options
     },
     getOptions: function (callback) {
       var that = this
       if (!this.options.hasOwnProperty('data')) {
-        this.$http.get('http://api.eataway.co.uk/ingredients').then((response) => {
+        this.$http.get('http://api.eataway.co.uk/ingredients', {}, {}).then((response) => {
           that.options = response.data
           return callback(response.data)
         }, (response) => {
