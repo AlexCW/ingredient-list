@@ -30,14 +30,15 @@
 }
 
 .modal-body {
-  margin: 20px 0;
   max-height: 500px;
   overflow-y: auto;
   vertical-align: middle;
 }
 
-.modal-default-button {
-  float: right;
+.modal-body img {
+max-width: 100%;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
 }
 
 .modal-enter {
@@ -52,4 +53,26 @@
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.modal-body table th {
+  background: $darkBlue;
+  color: white;
+}
+
+.modal-body table td:nth-child(1) {
+  font-weight:bold;
+}
+
+.modal-body table td.user-has-ingredient {
+  color: $darkBlue;
+  font-weight: bold;
+}
+
+.modal-body table td.user-has-ingredient::after {
+    font-family: 'Glyphicons Halflings';
+    font-size: 1.2em;
+    content: "\e089";
+    color: green;
+    float: right;
 }

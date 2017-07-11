@@ -87,10 +87,10 @@ export default {
       var ingredients = {}
       var userIngredients = this.ingredients
       this.recipe.ingredients.forEach(function (ingredient) {
-        var background = userIngredients.indexOf(ingredient.id) > -1 ? 'green' : ''
+        var background = userIngredients.indexOf(ingredient.id) > -1 ? 'user-has-ingredient' : ''
 
         ingredients[ingredient.attributes.name] = {
-          style: {background: background},
+          style: background,
           value: ingredient.attributes.amount + (ingredient.attributes.measurement !== 'total' ? ingredient.attributes.measurement : '')
         }
       })

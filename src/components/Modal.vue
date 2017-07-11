@@ -14,11 +14,11 @@
                   </tr>
                   <tr v-for="(row, name) in table.rows">
                       <td>{{name}}</td>
-                      <td v-bind:style="row.style">{{row.value}}</td>
+                      <td v-bind:class="setClassName(row.style)">{{row.value}}</td>
                   </tr>
               </table>
           </div>
-          
+
       </div>
   </div>
 </template>
@@ -43,6 +43,9 @@ export default {
   methods: {
     resetProperties: function () {
       Object.assign(this.$data, this.$options.data.call(this))
+    },
+    setClassName: function (style) {
+      return style
     },
     closeModal: function () {
       this.$root.showModal = false
