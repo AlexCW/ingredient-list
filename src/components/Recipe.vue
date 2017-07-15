@@ -63,7 +63,7 @@ export default {
       if (uploads.length > 0) {
         return uploads[0]['attributes']['url'] + '/' + size + '.jpg'
       } else {
-        return 'http://cdn.jamieoliver.com/recipe-database/430_575/0x0zIFPCqlsBq04WOaAyic.jpg'
+        return ''
       }
     },
     getIngredients: function () {

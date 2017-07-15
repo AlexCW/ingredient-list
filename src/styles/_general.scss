@@ -20,3 +20,34 @@ ul {
 .table tr td, .table tr th {
   	padding: 5px;
 }
+
+nav li a {
+	clear: left;
+	text-align: center;
+}
+
+@media only screen and (max-width : 720px) {
+	.navbar {
+		margin: 0;
+	}
+
+	.navbar-nav {
+		border: 1px black;
+		margin: 0;
+	}
+
+	.navbar-nav>li>a {
+		background: $darkBlue;
+		color: white !important;
+		&:hover {
+			background: white;
+			color: $darkBlue !important;
+		}
+	}
+
+	
+
+	.container {
+		border-top: 0px !important;
+	}
+}

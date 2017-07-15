@@ -33,3 +33,9 @@
   position: absolute;
   width: 100%;
 }
+
+@media only screen and (max-width : 720px) {
+  .card .card-body .card-block {
+    padding: 0px;
+  }
+}
