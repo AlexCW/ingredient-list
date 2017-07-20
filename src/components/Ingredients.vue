@@ -124,6 +124,7 @@ export default {
       })
     },
     searchRecipes: function () {
+      var that = this
       if (typeof this.options.data !== undefined) {
         var options = this.options.data.reduce(function (reduceObject, ingredient) {
           var obj = reduceObject.hasOwnProperty('attributes') ? {} : reduceObject
@@ -136,10 +137,10 @@ export default {
         this.myIngredients = ingredients
         this.recipes = {}
         this.$http.post(this.src, this.buildRecipeOptions()).then((response) => {
-          this.recipes = response.data.data
-          this.included = response.data.included
+          that.recipes = response.data.data
+          that.included = response.data.included
         }, (response) => {
-        }).bind(this)
+        })
       }
     },
     buildRecipeOptions: function () {
@@ -176,7 +177,7 @@ export default {
           that.options = response.data
           return callback(response.data)
         }, (response) => {
-        }).bind(this)
+        })
       } else {
         return callback(that.options)
       }
