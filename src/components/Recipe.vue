@@ -103,6 +103,7 @@ export default {
       this.modal.image = {
         'src': this.getUploads('largest')
       }
+      this.modal.containerStyle = {width: '40%'}
     }
   },
   props: ['recipe', 'included', 'ingredients'],

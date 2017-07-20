@@ -1,13 +1,13 @@
 <template class="modal-template">
   <div class="modal-mask" v-show="show" @click="closeModal" transition="modal">
-      <div class="modal-container" @click.stop>
+      <div class="modal-container" @click.stop v-bind:style="containerStyle">
 
           <div class="modal-header">
               <h3>{{title}}</h3>
           </div>
 
           <div class="modal-body">
-              <img v-if="image" v-bind:src="image.src"/>
+              <img v-if="image" v-bind:src="image.src">
               <table v-if="table" class="table">
                   <tr v-if="table.headers">
                       <th v-for="header in table.headers">{{header}}</th>
@@ -37,7 +37,8 @@ export default {
       image: {},
       type: 'modal',
       table: {},
-      title: ''
+      title: '',
+      containerStyle: ''
     }
   },
   methods: {

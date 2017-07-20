@@ -8,17 +8,20 @@
               <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
           </div>
           <div class="row filters">
-              <div class="col-lg-3">
+              <div class="col-lg-4">
                 <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
               </div>
-              <div class="col-lg-3">
+              <div class="col-lg-4">
                 <input type="text" class="form-control" v-model="prepTime" placeholder="Prep Time"/>
               </div>
-              <div class="col-lg-3">
+              <div class="col-lg-4">
                 <input type="text" class="form-control" v-model="cookingTime" placeholder="Cooking Time"/>
               </div>
-              <div class="col-lg-3">
+              <div class="col-lg-4">
                 <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
+              </div>
+              <div class="col-lg-4">
+                <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
               </div>
           </div>
           <div class="row">
@@ -77,13 +80,21 @@ export default {
       prepTime: '',
       difficulty: '',
       difficulties: [{value: 'easy', label: 'Easy'}, {value: 'medium', label: 'Medium'}, {value: 'hard', label: 'Hard'}],
-      cuisines: []
+      cuisines: [],
+      tags: []
     }
   },
   created: function () {
-    this.$http.get('http://api.eataway.co.uk/cuisines').then((response) => {
+    this.$http.get('http://api.eataway.co.uk/cuisines?sort=name&direction=asc').then((response) => {
       this.cuisines = response.data.data.map(function (cuisine) {
         return {value: cuisine.id, label: cuisine.attributes.name}
+      })
+    }, (response) => {
+    }).bind(this)
+
+    this.$http.get('http://api.eataway.co.uk/tags?sort=name&direction=asc').then((response) => {
+      this.tags = response.data.data.map(function (tag) {
+        return {value: tag.id, label: tag.attributes.name}
       })
     }, (response) => {
     }).bind(this)
@@ -143,6 +154,12 @@ export default {
 
       if (this.cuisine) {
         options['cuisine'] = this.cuisine.value
+      }
+
+      if (this.tag) {
+        options['tags'] = this.tag.map(function (tag) {
+          return tag.value
+        })
       }
 
       return options
