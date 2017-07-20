@@ -13,10 +13,10 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
     extensions: ['', '.js', '.vue', '.css', '.scss'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
+      'nouislider': path.join(__dirname, '../node_modules/nouislider/distribute/nouislider.min.css'),
       'vue': 'vue/dist/vue.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
