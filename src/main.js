@@ -5,15 +5,16 @@ import Ingredients from './components/Ingredients.vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import axios from 'axios/index.js'
 
 import './styles/app.scss'
 
 window.$ = window.jQuery = require('jquery')
 
-Vue.use(VueResource)
 
 Vue.use(VueRouter)
 
+Vue.prototype.$http = axios
 const Hello = { template: '<div>home</div>' }
 
 const router = new VueRouter({
