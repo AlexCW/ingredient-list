@@ -89,19 +89,20 @@ export default {
     }
   },
   created: function () {
+    var that = this
     this.$http.get('http://api.eataway.co.uk/cuisines?sort=name&direction=asc').then((response) => {
-      this.cuisines = response.data.data.map(function (cuisine) {
+      that.cuisines = response.data.data.map(function (cuisine) {
         return {value: cuisine.id, label: cuisine.attributes.name}
       })
     }, (response) => {
-    }).bind(this)
+    })
 
     this.$http.get('http://api.eataway.co.uk/tags?sort=name&direction=asc').then((response) => {
-      this.tags = response.data.data.map(function (tag) {
+      that.tags = response.data.data.map(function (tag) {
         return {value: tag.id, label: tag.attributes.name}
       })
     }, (response) => {
-    }).bind(this)
+    })
   },
   methods: {
     addRow: function (index, e) {
