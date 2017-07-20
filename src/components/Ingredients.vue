@@ -8,20 +8,24 @@
               <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
           </div>
           <div class="row filters">
-              <div class="col-lg-4">
-                <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
+              <div class="row">
+                <div class="col-lg-4">
+                  <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
+                </div>
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" v-model="prepTime" placeholder="Prep Time"/>
+                </div>
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" v-model="cookingTime" placeholder="Cooking Time"/>
+                </div>
               </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" v-model="prepTime" placeholder="Prep Time"/>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" v-model="cookingTime" placeholder="Cooking Time"/>
-              </div>
-              <div class="col-lg-4">
-                <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
-              </div>
-              <div class="col-lg-4">
-                <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
+              <div class="row">
+                <div class="col-lg-4 col-lg-offset-2">
+                  <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
+                </div>
+                <div class="col-lg-4">
+                  <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
+                </div>
               </div>
           </div>
           <div class="row">
