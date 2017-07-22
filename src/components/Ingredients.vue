@@ -59,6 +59,7 @@
 import Lookahead from './Lookahead.vue'
 import Recipe from './Recipe.vue'
 import vSelect from 'vue-select'
+import auth from '../auth'
 
 export default {
   template: '#ingredients',
@@ -173,7 +174,9 @@ export default {
     getOptions: function (callback) {
       var that = this
       if (!this.options.hasOwnProperty('data')) {
-        this.$http.get('http://api.eataway.co.uk/ingredients', {}, {}).then((response) => {
+        this.$http.get('http://api.eataway.co.uk/ingredients', {}, {
+          headers: auth.getAuthHeader()
+        }).then((response) => {
           that.options = response.data
           return callback(response.data)
         }, (response) => {
@@ -191,6 +194,13 @@ export default {
           this.alert = ''
         }
       }
+    }
+  },
+  route: {
+    // Check the users auth status before
+    // allowing navigation to the route
+    canActivate () {
+      return auth.user.authenticated
     }
   }
 }
