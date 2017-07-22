@@ -1,4 +1,5 @@
 import {router} from '../main'
+import errors from '../errors'
 
 const API_URL = 'http://api.eataway.co.uk/'
 const LOGIN_URL = API_URL + 'auth/login'
@@ -23,16 +24,7 @@ export default {
         router.go(redirect)
       }
     }).catch((error) => {
-      if (error.response && error.response.status === 422) {
-        error.response.data.errors.forEach(function (error) {
-          var field = error.source.pointer.split('/').pop()
-          if (context.fields.hasOwnProperty(field)) {
-            context.fields[field].error = error.detail
-          }
-        })
-      } else {
-        context.error = error.response.data.errors[0].detail
-      }
+      errors.handle(context, error)
     })
   },
   signup (context, creds, redirect) {
@@ -47,16 +39,7 @@ export default {
         router.go(redirect)
       }
     }).catch((error) => {
-      if (error.response && error.response.status === 422) {
-        error.response.data.errors.forEach(function (error) {
-          var field = error.source.pointer.split('/').pop()
-          if (context.fields.hasOwnProperty(field)) {
-            context.fields[field].error = error.detail
-          }
-        })
-      } else {
-        context.error = error.response.data.errors[0].detail
-      }
+      errors.handle(context, error)
     })
   },
   logout () {
