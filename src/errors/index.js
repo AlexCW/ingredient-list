@@ -3,7 +3,9 @@ export default {
     if (error.response && error.response.status === 422) {
       this.handleValidationError(context, error.response.data.errors)
     } else {
-      context.error = error.response.data.errors[0].detail
+      if(error.response.data.errors) {
+        context.error = error.response.data.errors[0].detail
+      }
     }
   },
   handleValidationError (context, errors) {
