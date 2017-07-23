@@ -61,6 +61,8 @@ import Recipe from './Recipe.vue'
 import vSelect from 'vue-select'
 import auth from '../auth'
 
+const API_URL = 'http://api.eataway.co.uk/'
+
 export default {
   template: '#ingredients',
   components: { 'lookahead': Lookahead, 'recipe': Recipe, 'vSelect': vSelect },
@@ -76,7 +78,7 @@ export default {
           }
         }
       ],
-      src: 'http://api.eataway.co.uk/recipes/ingredients/suggest',
+      src: API_URL + 'recipes/ingredients/suggest',
       options: {},
       recipes: {},
       included: {},
@@ -91,14 +93,14 @@ export default {
   },
   created: function () {
     var that = this
-    this.$http.get('http://api.eataway.co.uk/cuisines?sort=name&direction=asc').then((response) => {
+    this.$http.get(API_URL + 'cuisines?sort=name&direction=asc').then((response) => {
       that.cuisines = response.data.data.map(function (cuisine) {
         return {value: cuisine.id, label: cuisine.attributes.name}
       })
     }, (response) => {
     })
 
-    this.$http.get('http://api.eataway.co.uk/tags?sort=name&direction=asc').then((response) => {
+    this.$http.get(API_URL + 'tags?sort=name&direction=asc').then((response) => {
       that.tags = response.data.data.map(function (tag) {
         return {value: tag.id, label: tag.attributes.name}
       })
@@ -174,7 +176,7 @@ export default {
     getOptions: function (callback) {
       var that = this
       if (!this.options.hasOwnProperty('data')) {
-        this.$http.get('http://api.eataway.co.uk/ingredients', {}, {
+        this.$http.get(API_URL + 'ingredients', {}, {
           headers: auth.getAuthHeader()
         }).then((response) => {
           that.options = response.data
