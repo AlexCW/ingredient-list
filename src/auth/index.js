@@ -16,7 +16,7 @@ export default {
     context.$http.post(LOGIN_URL, creds, {
       'eataway-token': 'test'
     }).then((response) => {
-      window.localStorage.setItem('id_token', response.id_token)
+      window.localStorage.setItem('token', response.headers.token)
 
       this.user.authenticated = true
 
@@ -24,6 +24,7 @@ export default {
         router.go(redirect)
       }
     }).catch((error) => {
+      console.log(error)
       errors.handle(context, error)
     })
   },
@@ -31,7 +32,7 @@ export default {
     context.$http.post(SIGNUP_URL, creds, {
       'eataway-token': 'test'
     }).then((response) => {
-      window.localStorage.setItem('id_token', response.id_token)
+      window.localStorage.setItem('token', response.headers.token)
 
       this.user.authenticated = true
 
@@ -43,7 +44,7 @@ export default {
     })
   },
   logout () {
-    window.localStorage.removeItem('id_token')
+    window.localStorage.removeItem('token')
     this.user.authenticated = false
   },
   clearErrors (context) {
@@ -52,7 +53,7 @@ export default {
     }
   },
   checkAuth () {
-    var jwt = window.localStorage.getItem('id_token')
+    var jwt = window.localStorage.getItem('token')
     if (jwt) {
       this.user.authenticated = true
     } else {
@@ -62,7 +63,7 @@ export default {
 
   getAuthHeader () {
     return {
-      'Authorization': 'Bearer ' + window.localStorage.getItem('id_token')
+      'Authorization': 'Bearer ' + window.localStorage.getItem('token')
     }
   }
 }
