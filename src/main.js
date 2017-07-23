@@ -19,7 +19,7 @@ Vue.prototype.$http = axios
 
 const Hello = { template: '<div>home</div>' }
 
-const router = new VueRouter({
+export const router = new VueRouter({
   routes: [
     // dynamic segments start with a colon
     { path: '/', component: Hello },
