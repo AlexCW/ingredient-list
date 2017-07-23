@@ -26,7 +26,8 @@ export const router = new VueRouter({
     { path: '/ingredients', component: Ingredients },
     { path: '/test', component: Test },
     { path: '/login', component: Login },
-    { path: '/signup', component: Signup }
+    { path: '/signup', component: Signup },
+    { path: '*', redirect: '/' }  //  Catch all redirect
   ]
 })
 
