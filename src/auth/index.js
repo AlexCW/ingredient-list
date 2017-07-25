@@ -6,14 +6,14 @@ const LOGIN_URL = API_URL + 'auth/login'
 const SIGNUP_URL = API_URL + 'users/'
 
 export default {
-  login (context, creds) {
+  login (context, creds, redirect) {
     this.clearErrors(context)
 
     context.$http.post(LOGIN_URL, creds, {
       'eataway-token': 'test'
     }).then((response) => {
       window.localStorage.setItem('token', response.headers.token)
-      router.go('/ingredients')
+      router.go('ingredients')
     }).catch((error) => {
       errors.handle(context, error)
     })
@@ -29,10 +29,11 @@ export default {
     })
   },
   isUserLoggedIn () {
-    return window.localStorage.getItem('token').length > 0
+    return window.localStorage.getItem('token') !== null
   },
   logout () {
     window.localStorage.removeItem('token')
+    router.go('/login')
   },
   clearErrors (context) {
     for (var field in context.fields) {
