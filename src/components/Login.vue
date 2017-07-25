@@ -59,7 +59,7 @@ export default {
         password: this.credentials.password
       }
 
-      auth.login(this, credentials, 'ingredients')
+      auth.login(this, credentials)
     }
   }
 }

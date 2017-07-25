@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Ingredients from './components/Ingredients.vue'
 import Test from './components/Test.vue'
 import App from './App'
+import auth from './auth'
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
 import VueRouter from 'vue-router'
@@ -23,9 +24,27 @@ export const router = new VueRouter({
   routes: [
     // dynamic segments start with a colon
     { path: '/', component: Hello },
-    { path: '/ingredients', component: Ingredients },
+    {
+      path: '/ingredients',
+      component: Ingredients,
+      beforeEnter: (to, from, next) => {
+        if (!auth.isUserLoggedIn()) {
+          return false
+        }
+        next()
+      }
+    },
     { path: '/test', component: Test },
-    { path: '/login', component: Login },
+    {
+      path: '/login',
+      component: Login,
+      beforeEnter: (to, from, next) => {
+        if (auth.isUserLoggedIn()) {
+          return false
+        }
+        next()
+      }
+    },
     { path: '/signup', component: Signup },
     { path: '*', redirect: '/' }  //  Catch all redirect
   ]

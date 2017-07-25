@@ -7,6 +7,7 @@
         </a>
         <ul class="nav navbar-nav">
           <li><router-link :to="{ path: '/' }">Home</router-link></li>
+          <li><router-link :to="{ path: '/login' }">Login</router-link></li>
           <li><router-link :to="{ path: 'ingredients' }">Ingredients</router-link></li>
         </ul>
     </nav>
