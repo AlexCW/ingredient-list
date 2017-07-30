@@ -28,9 +28,11 @@ export default {
       errors.handle(context, error)
     })
   },
-  logout () {
+  logout (context) {
     window.localStorage.removeItem('token')
-    router.push('/login')
+    context.$store.dispatch('flash', {type: 'success', message: 'You have successfully logged out'}).then(() => {
+      router.push('/login')
+    })
   },
   clearErrors (context) {
     for (var field in context.fields) {

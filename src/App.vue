@@ -48,7 +48,7 @@
     },
     methods: {
       logoutUser () {
-        auth.logout()
+        auth.logout(this)
       }
     }
   }
