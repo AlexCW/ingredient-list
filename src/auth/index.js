@@ -12,8 +12,9 @@ export default {
       'eataway-token': 'test'
     }).then((response) => {
       window.localStorage.setItem('token', response.headers.token)
-      router.push('/ingredients')
-      context.$store.dispatch('flash', {type: 'success', message: 'You have successfully logged in'})
+      context.$store.dispatch('flash', {type: 'success', message: 'You have successfully logged in'}).then(() => {
+        router.push('/ingredients')
+      })
     }).catch((error) => {
       errors.handle(context, error)
     })
@@ -27,12 +28,9 @@ export default {
       errors.handle(context, error)
     })
   },
-  isUserLoggedIn () {
-    return window.localStorage.getItem('token') !== null
-  },
   logout () {
     window.localStorage.removeItem('token')
-    router.go('/login')
+    router.push('/login')
   },
   clearErrors (context) {
     for (var field in context.fields) {

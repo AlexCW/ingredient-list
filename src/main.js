@@ -12,8 +12,6 @@ import Test from './components/Test.vue'
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
 
-import auth from './auth'
-
 import './styles/app.scss'
 
 window.$ = window.jQuery = require('jquery')
@@ -32,7 +30,7 @@ export const router = new VueRouter({
       path: '/ingredients',
       component: Ingredients,
       beforeEnter: (to, from, next) => {
-        if (!auth.isUserLoggedIn()) {
+        if (!store.state.isLoggedIn) {
           return false
         }
         next()
@@ -43,7 +41,7 @@ export const router = new VueRouter({
       path: '/login',
       component: Login,
       beforeEnter: (to, from, next) => {
-        if (auth.isUserLoggedIn()) {
+        if (store.state.isLoggedIn) {
           return false
         }
         next()

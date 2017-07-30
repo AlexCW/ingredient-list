@@ -31,11 +31,20 @@
     computed: {
       flashTypeClass () {
         return 'alert alert-' + this.$store.state.flash.type
+      },
+      isLoggedIn () {
+        return this.$store.state.isLoggedIn
+      }
+    },
+    updated () {
+      if (window.localStorage.getItem('token')) {
+        this.$store.dispatch('isLoggedIn', window.localStorage.getItem('token'))
+      } else {
+        this.$store.dispatch('isLoggedIn', false)
       }
     },
     data: {
-      showModal: false,
-      isLoggedIn: auth.isUserLoggedIn()
+      showModal: false
     },
     methods: {
       logoutUser () {
