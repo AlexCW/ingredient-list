@@ -8,12 +8,12 @@ const SIGNUP_URL = API_URL + 'users/'
 export default {
   login (context, creds, redirect) {
     this.clearErrors(context)
-
     context.$http.post(LOGIN_URL, creds, {
       'eataway-token': 'test'
     }).then((response) => {
       window.localStorage.setItem('token', response.headers.token)
-      router.go('ingredients')
+      router.push('/ingredients')
+      context.$store.dispatch('flash', {type: 'success', message: 'You have successfully logged in'})
     }).catch((error) => {
       errors.handle(context, error)
     })
@@ -23,7 +23,6 @@ export default {
       'eataway-token': 'test'
     }).then((response) => {
       window.localStorage.setItem('token', response.headers.token)
-      router.go('/ingredients')
     }).catch((error) => {
       errors.handle(context, error)
     })

@@ -15,6 +15,7 @@
     </nav>
     <div class="container">
       <div class="col-sm-12">
+        <div v-bind:class="flashTypeClass" v-if="$store.state.flash.visible">{{$store.state.flash.message}}</div>
         <router-view></router-view>
         <modal :show.sync="showModal" @close="showModal = false"></modal>
       </div>
@@ -27,6 +28,11 @@
   import Modal from './components/Modal.vue'
   export default {
     components: {'modal': Modal},
+    computed: {
+      flashTypeClass () {
+        return 'alert alert-' + this.$store.state.flash.type
+      }
+    },
     data: {
       showModal: false,
       isLoggedIn: auth.isUserLoggedIn()
