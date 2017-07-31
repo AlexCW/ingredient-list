@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { flashModule } from './flash'
-import { authModule } from './auth'
+import { flashModule } from './modules/flash'
+import { authModule } from './modules/auth'
 
 Vue.use(Vuex)
 
