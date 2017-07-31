@@ -16,15 +16,8 @@
     </div>
   </div>
 </template>
-
-<style>
-  #recipe {
-    margin-top: 5px;
-    padding-bottom: 5px;
-  }
-</style>
-
 <script>
+import api from '../helpers/api'
 export default {
   created: function () {
     this.recipe.upload = this.getUploads('large')
@@ -40,25 +33,10 @@ export default {
     }
   },
   methods: {
-    getRelationshipIdentifiers: function (key) {
-      return this.recipe.relationships[key].data.map(function (u) {
-        return u.id
-      })
-    },
-    getIncludedData: function (ids) {
-      this.included.map(function (u) {
-        var indexId = ids.indexOf(u.id)
-        if (indexId > -1) {
-          ids[indexId] = u
-        }
-        return u
-      })
-      return ids
-    },
     getUploads: function (size) {
-      var ids = this.getRelationshipIdentifiers('uploads')
+      var ids = api.getRelationshipIdentifiers(this.recipe, 'uploads')
 
-      var uploads = this.getIncludedData(ids)
+      var uploads = api.getIncludedData(this, ids)
 
       if (uploads.length > 0) {
         return uploads[0]['attributes']['url'] + '/' + size + '.jpg'
@@ -67,9 +45,9 @@ export default {
       }
     },
     getIngredients: function () {
-      var ids = this.getRelationshipIdentifiers('ingredients')
+      var ids = api.getRelationshipIdentifiers(this.recipe, 'ingredients')
 
-      var ingredients = this.getIncludedData(ids)
+      var ingredients = api.getIncludedData(this, ids)
 
       if (ingredients.length > 0) {
         this.recipe.ingredients = ingredients
