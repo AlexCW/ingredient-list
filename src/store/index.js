@@ -15,7 +15,7 @@ const flashModule = {
       Object.assign(state, data)
     },
     error (state, data) {
-      state = data
+      Object.assign(state, data)
     }
   },
   getters: {
