@@ -30,7 +30,7 @@ export const router = new VueRouter({
       path: '/ingredients',
       component: Ingredients,
       beforeEnter: (to, from, next) => {
-        if (!store.state.isLoggedIn) {
+        if (!store.state.auth.isLoggedIn) {
           return false
         }
         next()
@@ -41,7 +41,7 @@ export const router = new VueRouter({
       path: '/login',
       component: Login,
       beforeEnter: (to, from, next) => {
-        if (store.state.isLoggedIn) {
+        if (store.state.auth.isLoggedIn) {
           return false
         }
         next()

@@ -33,14 +33,14 @@
         return 'alert alert-' + this.$store.state.flash.type
       },
       isLoggedIn () {
-        return this.$store.state.isLoggedIn
+        return this.$store.state.auth.isLoggedIn
       }
     },
     updated () {
       if (window.localStorage.getItem('token')) {
-        this.$store.dispatch('isLoggedIn', window.localStorage.getItem('token'))
+        this.$store.dispatch('auth/isLoggedIn', window.localStorage.getItem('token'))
       } else {
-        this.$store.dispatch('isLoggedIn', false)
+        this.$store.dispatch('auth/isLoggedIn', false)
       }
     },
     data: {

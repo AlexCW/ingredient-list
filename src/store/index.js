@@ -3,46 +3,54 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const state = {
-  flash: {
+const flashModule = {
+  namespaced: true,
+  state: {
     type: '',
     message: '',
     visible: false
   },
-  isLoggedIn: false
-}
-
-const mutations = {
-  success (state, data) {
-    state.flash = data
-    state.flash.visible = true
+  mutations: {
+    success (state, data) {
+      Object.assign(state, data)
+    },
+    error (state, data) {
+      state = data
+    }
   },
-  error (state, data) {
-    state.flash = data
-    state.flash.visible = true
+  getters: {
+    flash: state => state
   },
-  isLoggedIn (state, data) {
-    state.isLoggedIn = data !== false
+  actions: {
+    flash: ({ commit }, payload) => {
+      commit(payload.type, payload, payload)
+    }
   }
 }
 
-const actions = {
-  flash: ({ commit }, payload) => {
-    commit(payload.type, payload, payload)
+const authModule = {
+  namespaced: true,
+  state: {
+    isLoggedIn: false
   },
-  isLoggedIn: ({ commit }, payload) => {
-    commit('isLoggedIn', payload)
+  mutations: {
+    isLoggedIn (state, data) {
+      state.isLoggedIn = data !== false
+    }
+  },
+  getters: {
+    isLoggedIn: state => state.isLoggedIn
+  },
+  actions: {
+    isLoggedIn: ({ commit }, payload) => {
+      commit('isLoggedIn', payload)
+    }
   }
-}
-
-const getters = {
-  flash: state => state.flash,
-  isLoggedIn: state => state.isLoggedIn
 }
 
 export default new Vuex.Store({
-  state,
-  getters,
-  actions,
-  mutations
+  modules: {
+    flash: flashModule,
+    auth: authModule
+  }
 })
