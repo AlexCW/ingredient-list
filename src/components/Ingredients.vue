@@ -134,15 +134,14 @@ export default {
       }
     },
     prepareSearch: function () {
-      var options = this.options.data.reduce(function (reduceObject, ingredient) {
+      var options = this.options.data.reduce((reduceObject, ingredient) => {
         var obj = reduceObject.hasOwnProperty('attributes') ? {} : reduceObject
         obj[ingredient.attributes.name] = ingredient.id
         return obj
       })
-      this.myIngredients = this.ingredients.map(function (ingredient) { return options[ingredient.text.id] })
-                                        .filter(function (ingredient) {
-                                          return ingredient !== undefined
-                                        })
+
+      this.myIngredients = this.ingredients.map(ingredient => options[ingredient.text.id])
+                                           .filter(ingredient => ingredient !== undefined)
       this.recipes = {}
     },
     buildRecipeOptions: function () {

@@ -1,17 +1,16 @@
 export default {
   getIncludedData: function (context, ids) {
-    context.included.map(function (u) {
-      var indexId = ids.indexOf(u.id)
+    context.included.map(include => {
+      var indexId = ids.indexOf(include.id)
       if (indexId > -1) {
-        ids[indexId] = u
+        ids[indexId] = include
       }
-      return u
+      return include
     })
+
     return ids
   },
   getRelationshipIdentifiers: function (context, key) {
-    return context.relationships[key].data.map(function (u) {
-      return u.id
-    })
+    return context.relationships[key].data.map(relation => relation.id)
   }
 }

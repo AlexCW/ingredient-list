@@ -27,9 +27,7 @@ export default {
   },
   computed: {
     modal: function () {
-      return this.$root.$children.filter(function (child) {
-        return child.type === 'modal'
-      }).pop()
+      return this.$root.$children.filter(child => child.type === 'modal').pop()
     }
   },
   methods: {

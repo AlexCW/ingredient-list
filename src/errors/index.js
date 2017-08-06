@@ -11,7 +11,7 @@ export default {
     }
   },
   handleValidationError (context, errors) {
-    errors.forEach(function (error) {
+    errors.forEach(error => {
       var field = error.source.pointer.split('/').pop()
       if (context.fields.hasOwnProperty(field)) {
         context.fields[field].error = error.detail
