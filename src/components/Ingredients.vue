@@ -129,22 +129,25 @@ export default {
     searchRecipes: function () {
       var that = this
       if (typeof this.options.data !== undefined) {
-        var options = this.options.data.reduce(function (reduceObject, ingredient) {
-          var obj = reduceObject.hasOwnProperty('attributes') ? {} : reduceObject
-          obj[ingredient.attributes.name] = ingredient.id
-          return obj
-        })
-        var ingredients = this.ingredients.map(function (a) { return options[a.text.id] }).filter(function (a) {
-          return a !== undefined
-        })
-        this.myIngredients = ingredients
-        this.recipes = {}
+        this.prepareSearch()
         this.$http.post(this.src, this.buildRecipeOptions()).then((response) => {
           that.recipes = response.data.data
           that.included = response.data.included
         }, (response) => {
         })
       }
+    },
+    prepareSearch: function () {
+      var options = this.options.data.reduce(function (reduceObject, ingredient) {
+        var obj = reduceObject.hasOwnProperty('attributes') ? {} : reduceObject
+        obj[ingredient.attributes.name] = ingredient.id
+        return obj
+      })
+      this.myIngredients = this.ingredients.map(function (ingredient) { return options[ingredient.text.id] })
+                                        .filter(function (ingredient) {
+                                          return ingredient !== undefined
+                                        })
+      this.recipes = {}
     },
     buildRecipeOptions: function () {
       var options = {'ingredients': this.myIngredients}
