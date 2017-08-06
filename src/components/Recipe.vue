@@ -64,7 +64,7 @@ export default {
     buildIngredientsTable: function () {
       var ingredients = {}
       var userIngredients = this.ingredients
-      this.recipe.ingredients.forEach(function (ingredient) {
+      this.recipe.ingredients.forEach(ingredient => {
         var background = userIngredients.indexOf(ingredient.id) > -1 ? 'user-has-ingredient' : ''
 
         ingredients[ingredient.attributes.name] = {

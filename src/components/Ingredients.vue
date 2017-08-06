@@ -94,16 +94,12 @@ export default {
   created: function () {
     var that = this
     this.$http.get(API_URL + 'cuisines?sort=name&direction=asc').then((response) => {
-      that.cuisines = response.data.data.map(function (cuisine) {
-        return {value: cuisine.id, label: cuisine.attributes.name}
-      })
+      that.cuisines = response.data.data.map(cuisine => ({value: cuisine.id, label: cuisine.attributes.name}))
     }, (response) => {
     })
 
     this.$http.get(API_URL + 'tags?sort=name&direction=asc').then((response) => {
-      that.tags = response.data.data.map(function (tag) {
-        return {value: tag.id, label: tag.attributes.name}
-      })
+      that.tags = response.data.data.map(tag => ({value: tag.id, label: tag.attributes.name}))
     }, (response) => {
     })
   },
