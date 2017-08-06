@@ -3,8 +3,10 @@ export default {
     if (error.response && error.response.status === 422) {
       this.handleValidationError(context, error.response.data.errors)
     } else {
-      if (error.response.data.errors) {
+      if (error.response && error.response.data.errors) {
         context.error = error.response.data.errors[0].detail
+      } else {
+        context.error = 'There is currently an internal issue, please try again later'
       }
     }
   },
