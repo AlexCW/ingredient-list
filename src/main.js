@@ -52,6 +52,15 @@ export const router = new VueRouter({
   ]
 })
 
+router.beforeEach((to, from, next) => {
+  if (window.localStorage.getItem('token')) {
+    store.dispatch('auth/isLoggedIn', window.localStorage.getItem('token'))
+  } else {
+    store.dispatch('auth/isLoggedIn', false)
+  }
+  next()
+})
+
 new Vue({
   router,
   store,
