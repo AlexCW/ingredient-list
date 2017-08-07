@@ -70,14 +70,12 @@ export default {
     return {
       alert: '',
       images: [],
-      ingredients: [
-        {
-          text: {
-            id: '',
-            name: ''
-          }
+      ingredients: [{
+        text: {
+          id: '',
+          name: ''
         }
-      ],
+      }],
       src: API_URL + 'recipes/ingredients/suggest',
       options: {},
       recipes: {},
@@ -86,7 +84,9 @@ export default {
       cookingTime: '',
       prepTime: '',
       difficulty: '',
-      difficulties: [{value: 'easy', label: 'Easy'}, {value: 'medium', label: 'Medium'}, {value: 'hard', label: 'Hard'}],
+      difficulties: [
+        {value: 'easy', label: 'Easy'}, {value: 'medium', label: 'Medium'}, {value: 'hard', label: 'Hard'}
+      ],
       cuisines: [],
       tags: []
     }
@@ -118,9 +118,7 @@ export default {
       }
     },
     formatOptions: function (options) {
-      return options.data.map(function (data) {
-        return data.attributes.name
-      })
+      return options.data.map(option => option.attributes.name)
     },
     searchRecipes: function () {
       var that = this
@@ -164,9 +162,7 @@ export default {
       }
 
       if (this.tag) {
-        options['tags'] = this.tag.map(function (tag) {
-          return tag.value
-        })
+        options['tags'] = this.tag.map(tag => tag.value)
       }
 
       return options
