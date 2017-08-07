@@ -8,7 +8,6 @@ import axios from 'axios/index.js'
 
 import App from './App'
 import Ingredients from './components/Ingredients.vue'
-import Test from './components/Test.vue'
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
 
@@ -36,7 +35,6 @@ export const router = new VueRouter({
         next()
       }
     },
-    { path: '/test', component: Test },
     {
       path: '/login',
       component: Login,

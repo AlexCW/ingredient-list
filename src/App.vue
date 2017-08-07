@@ -9,7 +9,6 @@
           <li><router-link :to="{ path: '/' }">Home</router-link></li>
           <li v-if="!isLoggedIn()"><router-link :to="{ path: '/login' }">Login</router-link></li>
           <li v-if="isLoggedIn()"><router-link :to="{ path: 'ingredients' }">Ingredients</router-link></li>
-          <li v-if="isLoggedIn()"><router-link :to="{ path: 'test' }">Test</router-link></li>
           <li v-if="isLoggedIn()"><a href="#" @click="logoutUser">Logout</a></li>
         </ul>
     </nav>
