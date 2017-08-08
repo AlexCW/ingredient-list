@@ -1,10 +1,7 @@
 <template>
 <div>
-  <h1>Your Pantry</h1>
-  <div class="card-block">
-      <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
-  </div>
   <div class="col-sm-12 ingredients-wrapper">
+    <h1 class="pantry-header">Your Pantry</h1>
     <div id="ingredients">
       <div class="alert alert-danger" v-if="alert">{{alert}}</div>
           <div class="row">
@@ -20,6 +17,7 @@
           </div>
         </div>
     </div>
+      <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
     <div class="row filters nomargin">
         <div class="row nomargin">
           <div class="col-lg-4 nopadding">
