@@ -1,54 +1,58 @@
 <template>
-<div>
-  <div class="col-sm-12 ingredients-wrapper">
-    <h1 class="pantry-header">Your Pantry</h1>
-    <div id="ingredients">
-      <div class="alert alert-danger" v-if="alert">{{alert}}</div>
-          <div class="row">
-            <div class="col-sm-12">
-              <ul class="list-group list-group-flush">
-                  <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
-                      <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
-                      <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
-                      <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
-                  </li>
-              </ul>
+<div class="pantry">
+    <div class="pantry-header-wrapper">
+        <h1 class="pantry-header">Your Pantry</h1>
+        <div class="pantry-lookup">
+            <div class="alert alert-danger" v-if="alert">{{alert}}</div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="list-group list-group-flush">
+                        <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
+                            <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
+                            <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
+                            <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </div>
         </div>
     </div>
-      <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
-    <div class="row filters nomargin">
-        <div class="row nomargin">
-          <div class="col-lg-4 nopadding">
+
+    <div class="pantry-description">
+        <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
+    </div>
+
+    <div class="pantry-filters">
+        <div class="col-lg-4">
             <input type="text" class="form-control" v-model="prepTime" placeholder="Prep Time"/>
-          </div>
-          <div class="col-lg-4 nopadding">
+        </div>
+        <div class="col-lg-4">
             <input type="text" class="form-control" v-model="cookingTime" placeholder="Cooking Time"/>
-          </div>
-          <div class="col-lg-4 nopadding">
+        </div>
+        <div class="col-lg-4">
             <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
-          </div>
-          <div class="col-lg-4 nopadding">
+        </div>
+        <div class="col-lg-4">
             <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
-          </div>
-          <div class="col-lg-4 nopadding">
+        </div>
+        <div class="col-lg-4">
             <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
-          </div>
         </div>
     </div>
-    <button class="btn btn-primary search" v-on:click="searchRecipes()">Search</button>
-    <div class="row">
-      <div class="recipes" v-if="recipes.length">
+
+    <div class="pantry-search">
+        <button class="btn btn-primary search" v-on:click="searchRecipes()">Search</button>
+    </div>
+
+    <div class="pantry-recipes">
+        <div class="recipes" v-if="recipes.length">
           <template v-for="(recipe, index) in recipes">
               <recipe keep-alive v-bind:recipe="recipe" v-bind:included="included" v-bind:ingredients="myIngredients"></recipe>
           </template>
-      </div>
-      <div class="col-sm-8 col-sm-offset-2" v-else>
-        <p class="alert alert-danger">There are currently no recipes</p>
-      </div>
+        </div>
+        <p v-else class="alert alert-danger">There are currently no recipes</p>
     </div>
-  </div>
+</div>
 </template>
 
 <script>

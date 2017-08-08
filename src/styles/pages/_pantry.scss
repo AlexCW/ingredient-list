@@ -1,0 +1,29 @@
+.pantry .pantry-lookup {
+	padding: 100px;
+	text-align: center;
+}
+
+.pantry .pantry-header-wrapper {
+	background-image: url('https://thumbs.dreamstime.com/z/food-cooking-banner-kitchen-utensils-vegeta…ed-tablecloth-wooden-table-preparation-healthy-eating-concept-51344323.jpg');
+}
+
+.pantry .pantry-header {
+    color: white;
+    width: 20%;
+    float: right;
+    margin: 14px;
+}
+
+.pantry .pantry-description {
+	background: #4b4b4b;
+	color: white;
+	padding: 10px;
+}
+
+.pantry .pantry-description p {
+	margin: 0 auto;
+}
+
+.pantry .pantry-filters .col-lg-4 {
+	@include nopadding;
+}

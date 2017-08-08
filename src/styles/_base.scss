@@ -3,3 +3,12 @@ $darkBlue: #2e516f;
 @mixin bodyFont{
   	font-family: 'ABeeZee', sans-serif;
 }
+
+@mixin nopadding{
+  padding: 0 0 !important;
+}
+
+@mixin nomargin{
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+}

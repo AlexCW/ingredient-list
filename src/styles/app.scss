@@ -10,8 +10,10 @@
 @import 'modules/modal';
 @import 'modules/select';
 
+//Pages
+@import 'pages/pantry';
+
 .container {
-	border-top: 5px solid #424242;
 	background: #f8f8f8;
 	padding-bottom: 20%;
 }
@@ -25,18 +27,10 @@
   margin-bottom: 5px;
 }
 
-#ingredients {
-  padding: 100px;
-  text-align: center;
-}
-
 #recipe {
 	margin-top: 10px;
 }
 
-.pantry-header {
-    color: white;
-    width: 45%;
-    float: right;
-    margin: 0;
+.twitter-typeahead {
+	width: 40rem;
 }

@@ -7,7 +7,7 @@ import store from './store'
 import axios from 'axios/index.js'
 
 import App from './App'
-import Ingredients from './components/Ingredients.vue'
+import Pantry from './components/Pantry.vue'
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
 
@@ -26,8 +26,8 @@ export const router = new VueRouter({
     // dynamic segments start with a colon
     { path: '/', component: Hello },
     {
-      path: '/ingredients',
-      component: Ingredients,
+      path: '/pantry',
+      component: Pantry,
       beforeEnter: (to, from, next) => {
         if (!store.state.auth.isLoggedIn) {
           return false

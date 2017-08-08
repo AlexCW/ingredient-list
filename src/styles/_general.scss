@@ -26,15 +26,6 @@ nav li a {
 	text-align: center;
 }
 
-.nopadding {
-   padding: 0 0 !important;
-}
-
-.nomargin {
-	margin-left: 0px !important;
-	margin-right: 0px !important;
-}
-
 @media only screen and (max-width : 720px) {
 	.navbar {
 		margin: 0;
@@ -53,8 +44,6 @@ nav li a {
 			color: $darkBlue !important;
 		}
 	}
-
-	
 
 	.container {
 		border-top: 0px !important;
