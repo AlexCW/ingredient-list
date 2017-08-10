@@ -11,9 +11,8 @@ module.exports = {
     browser
       .url(devServer)
       .waitForElementVisible('#app', 5000)
-      .assert.elementPresent('.logo')
-      .assert.containsText('h1', 'Hello Vue!')
-      .assert.elementCount('p', 3)
+      .assert.elementPresent('.navbar-brand')
+      .assert.containsText('.navbar-brand', 'Pantry Picker')
       .end()
   }
 }

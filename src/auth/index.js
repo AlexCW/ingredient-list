@@ -1,4 +1,3 @@
-import {router} from '../main'
 import errors from '../errors'
 
 const API_URL = 'http://api.eataway.co.uk/'
@@ -13,7 +12,7 @@ export default {
     }).then((response) => {
       window.localStorage.setItem('token', response.headers.token)
       context.$store.dispatch('flash/flash', {type: 'success', message: 'You have successfully logged in', visible: true}).then(() => {
-        router.push('/ingredients')
+        context.router.push('/ingredients')
       })
     }).catch((error) => {
       errors.handle(context, error)
@@ -31,7 +30,7 @@ export default {
   logout (context) {
     window.localStorage.removeItem('token')
     context.$store.dispatch('flash/flash', {type: 'success', message: 'You have successfully logged out', visible: true}).then(() => {
-      router.push('/login')
+      context.router.push('/login')
     })
   },
   clearErrors (context) {
