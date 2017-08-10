@@ -1,18 +1,50 @@
 // For authoring Nightwatch tests, see
 // http://nightwatchjs.org/guide#usage
 
-module.exports = {
-  'default e2e tests': function (browser) {
-    // automatically uses dev Server port from /config.index.js
-    // default: http://localhost:8080
-    // see nightwatch.conf.js
-    const devServer = browser.globals.devServerURL
 
+module.exports = {
+  'testNavWhenLoggedOut' : function (browser) {
+    const devServer = browser.globals.devServerURL
     browser
       .url(devServer)
-      .waitForElementVisible('#app', 5000)
-      .assert.elementPresent('.navbar-brand')
-      .assert.containsText('.navbar-brand', 'Pantry Picker')
-      .end()
+      .waitForElementVisible('#app', 100)
+      .assert.elementPresent('.navbar-nav')
+      .assert.elementCount('.navbar-nav li', 2)
+      .end();
+  },
+  'testLoginFailsOnInvalidDetails' : function (browser) {
+    const devServer = browser.globals.devServerURL
+    browser
+      .url(devServer)
+      .waitForElementVisible('#app', 100)
+      .assert.elementPresent('.navbar-nav')
+      .assert.elementCount('.navbar-nav li', 2)
+      .click(".navbar-nav li:nth-child(2) a")
+      .assert.urlContains('login')
+      .setValue('#email', 'test@test.com')
+      .setValue('#password', 'fail')
+      .click('.btn-login')
+      .pause(1000)
+      .assert.visible('.login-errors')
+      .assert.containsText('.login-errors', 'The credentials you have provided do not match our records.')
+      .assert.urlContains('login')
+      .end();
+  },
+  'testLoginSucceeds' : function (browser) {
+    const devServer = browser.globals.devServerURL
+    browser
+      .url(devServer)
+      .waitForElementVisible('#app', 100)
+      .assert.elementPresent('.navbar-nav')
+      .assert.elementCount('.navbar-nav li', 2)
+      .click(".navbar-nav li:nth-child(2) a")
+      .setValue('#email', 'test@test.com')
+      .setValue('#password', 'testing')
+      .click('.btn-login')
+      .pause(1000)
+      .assert.visible('#flash-message')
+      .assert.containsText('#flash-message', 'You have successfully logged in')
+      .assert.urlContains('/')
+      .end();
   }
 }

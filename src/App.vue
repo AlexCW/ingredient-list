@@ -14,7 +14,7 @@
     </nav>
     <div class="container nopadding">
       <div class="col-sm-12 nopadding">
-        <div v-bind:class="flashTypeClass" v-if="$store.state.flash.visible">{{$store.state.flash.message}}</div>
+        <div id="flash-message" v-bind:class="flashTypeClass" v-if="$store.state.flash.visible">{{$store.state.flash.message}}</div>
         <router-view></router-view>
         <modal :show.sync="showModal" @close="showModal = false"></modal>
       </div>
