@@ -5,15 +5,13 @@
         <div class="pantry-lookup">
             <div class="alert alert-danger" v-if="alert">{{alert}}</div>
             <div class="row">
-                <div class="col-sm-12">
-                    <ul class="list-group list-group-flush">
-                        <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
-                            <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
-                            <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
-                            <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="list-group list-group-flush">
+                    <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
+                        <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
+                        <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
+                        <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

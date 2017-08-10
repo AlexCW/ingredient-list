@@ -1,5 +1,5 @@
 .pantry .pantry-lookup {
-	padding: 100px;
+	padding: 100px 0;
 	text-align: center;
 }
 
@@ -26,4 +26,10 @@
 
 .pantry .pantry-filters .col-lg-4 {
 	@include nopadding;
+}
+
+@media only screen and (max-width : 720px) {
+	.pantry .pantry-header {
+	    width: 55%;
+	}
 }
