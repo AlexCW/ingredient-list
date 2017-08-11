@@ -10,6 +10,7 @@ module.exports = {
       .waitForElementVisible('#app', 100)
       .assert.elementPresent('.navbar-nav')
       .assert.elementCount('.navbar-nav li', 2)
+      .assert.containsText('.navbar-nav li:nth-child(2)', 'Login')
       .end();
   },
   'testLoginFailsOnInvalidDetails' : function (browser) {
@@ -45,6 +46,9 @@ module.exports = {
       .assert.visible('#flash-message')
       .assert.containsText('#flash-message', 'You have successfully logged in')
       .assert.urlContains('/')
+      .assert.elementCount('.navbar-nav li', 3)
+      .assert.containsText('.navbar-nav li:nth-child(2)', 'Pantry')
+      .assert.containsText('.navbar-nav li:nth-child(3)', 'Logout')
       .end();
   }
 }
