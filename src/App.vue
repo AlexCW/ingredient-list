@@ -32,8 +32,10 @@
         return 'alert alert-' + this.$store.state.flash.type
       }
     },
-    data: {
-      showModal: false
+    data: function () {
+      return {
+        showModal: false
+      }
     },
     methods: {
       logoutUser () {
