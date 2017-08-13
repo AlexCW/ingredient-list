@@ -3,6 +3,7 @@ export const flashModule = {
   state: {
     type: '',
     message: '',
+    active: false,
     visible: false
   },
   mutations: {

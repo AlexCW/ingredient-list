@@ -59,6 +59,14 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+router.afterEach((to, from) => {
+  if (store.getters['flash/flash'].active && !store.getters['flash/flash'].visible) {
+    store.dispatch('flash/flash', Object.assign(store.getters['flash/flash'], {visible: true, active: false}))
+  } else {
+    store.dispatch('flash/flash', Object.assign(store.getters['flash/flash'], {visible: false}))
+  }
+})
+
 new Vue({
   router,
   store,
