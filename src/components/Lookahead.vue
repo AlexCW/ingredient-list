@@ -9,9 +9,7 @@ export default {
   components: [Typeahead],
   created: function () {
     var that = this
-    window.jQuery(document).ready(function () {
-      that.getOptions()
-    })
+    that.getOptions()
   },
   data: function () {
     return {
@@ -45,7 +43,7 @@ export default {
         matches = []
 
         substrRegex = new RegExp(q, 'i')
-        window.jQuery.each(strs, function (i, str) {
+        strs.forEach(function (str, i) {
           if (substrRegex.test(str)) {
             matches.push(str)
           }
