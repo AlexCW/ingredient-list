@@ -7,7 +7,7 @@
           </div>
 
           <div class="modal-body">
-              <img v-if="image" v-bind:src="image.src">
+              <img v-if="modalHasImage" v-bind:src="image.src">
               <table v-if="table" class="table">
                   <tr v-if="table.headers">
                       <th v-for="header in table.headers">{{header}}</th>
@@ -39,6 +39,11 @@ export default {
       table: {},
       title: '',
       containerStyle: ''
+    }
+  },
+  computed: {
+    modalHasImage: function () {
+      return this.image.hasOwnProperty('src')
     }
   },
   methods: {
