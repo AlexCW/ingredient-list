@@ -43,8 +43,8 @@ module.exports = {
       .assert.containsText('#flash-message', 'You have successfully logged in')
       .assert.urlContains('/')
       .assert.elementCount('.navbar-nav li', 3)
-      .assert.containsText('.navbar-nav li:nth-child(2)', 'Pantry')
-      .assert.containsText('.navbar-nav li:nth-child(3)', 'Logout')
+      .navContains(2, 'Pantry')
+      .navContains(3, 'Logout')
       .end();
   }
 }
