@@ -3,7 +3,6 @@
     <div class="pantry-header-wrapper">
         <h1 class="pantry-header">Your Pantry</h1>
         <div class="pantry-lookup">
-            <div class="alert alert-danger" v-if="alert">{{alert}}</div>
               <ul class="list-group list-group-flush">
                   <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
                       <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
@@ -13,40 +12,41 @@
               </ul>
         </div>
     </div>
-
     <div class="pantry-description">
         <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
     </div>
-
     <div class="pantry-filters">
-        <div class="col-lg-4">
-            <input type="text" class="form-control" v-model="prepTime" placeholder="Prep Time"/>
+        <div class="pantry-filters-row">
+            <div class="col-lg-3">
+                <input type="text" class="form-control" v-model="prepTime" placeholder="Prep Time"/>
+            </div>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" v-model="cookingTime" placeholder="Cooking Time"/>
+            </div>
+            <div class="col-lg-3">
+                <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
+            </div>
+            <div class="col-lg-3">
+                <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
+            </div>
         </div>
-        <div class="col-lg-4">
-            <input type="text" class="form-control" v-model="cookingTime" placeholder="Cooking Time"/>
-        </div>
-        <div class="col-lg-4">
-            <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
-        </div>
-        <div class="col-lg-4">
-            <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
-        </div>
-        <div class="col-lg-4">
-            <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
+        <div class="pantry-filters-row">
+            <div class="col-lg-3">
+                <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
+            </div>
         </div>
     </div>
-
     <div class="pantry-search">
         <button class="btn btn-primary search" v-on:click="searchRecipes()">Search</button>
     </div>
-
+  
     <div class="pantry-recipes">
         <div class="recipes" v-if="recipes.length">
           <template v-for="(recipe, index) in recipes">
               <recipe keep-alive v-bind:recipe="recipe" v-bind:included="included" v-bind:ingredients="myIngredients"></recipe>
           </template>
         </div>
-        <p v-else class="alert alert-danger">There are currently no recipes</p>
+        <p v-if="alert" class="alert alert-danger">{{alert}}</p>
     </div>
 </div>
 </template>
@@ -118,6 +118,9 @@ export default {
       if (typeof this.options.data !== undefined) {
         this.prepareSearch()
         this.$http.post(this.src, this.buildRecipeOptions()).then((response) => {
+          if (response.data.data.length === 0) {
+            that.alert = 'There are currently no recipes'
+          }
           that.recipes = response.data.data
           that.included = response.data.included
         }, (response) => {
