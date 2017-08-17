@@ -7,9 +7,8 @@ import Typeahead from 'typeahead.js'
 
 export default {
   components: [Typeahead],
-  created: function () {
-    var that = this
-    that.getOptions()
+  mounted: function () {
+    this.getOptions()
   },
   data: function () {
     return {
@@ -53,6 +52,7 @@ export default {
     },
     bindTypeahead: function (el) {
       var that = this
+
       window.jQuery(el).typeahead({
         hint: true,
         minLength: 3
