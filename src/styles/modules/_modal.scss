@@ -34,7 +34,8 @@
 }
 
 .modal-body {
-  height: 500px;
+  height: 100%;
+  max-height: 500px;
   overflow-y: auto;
   vertical-align: middle;
 }
