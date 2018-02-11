@@ -62,7 +62,7 @@ const API_URL = 'http://api.eataway.co.uk/'
 
 export default {
   template: '#ingredients',
-  components: { 'lookahead': Lookahead, 'recipe': Recipe, 'vSelect': vSelect },
+  components: { Lookahead, Recipe, vSelect },
   data: function () {
     return Object.assign(config, {
       alert: '',
