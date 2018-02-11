@@ -1,0 +1,18 @@
+.button {
+  display: block;
+  font-size: 1rem;
+  background: #2e516f;
+  border: 1px solid #2e516f;
+  padding: .75rem 1rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+}
+
+.button:hover,
+.button:focus {
+  background: lighten(#2e516f, 10%);
+  border: 1px solid lighten(#2e516f, 10%);
+  color: white;
+}

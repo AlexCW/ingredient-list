@@ -1,3 +1,10 @@
+html {
+  	font-family: 'ABeeZee', sans-serif;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+}
+
 a,
 a:hover{
 	text-decoration: none;
@@ -13,4 +20,11 @@ h4,
 h5
 {
 	@include bodyFont;
+	line-height: 1.2;
+}
+
+h4 {
+	margin-top: 24px;
+		margin-bottom: 24px;
+
 }

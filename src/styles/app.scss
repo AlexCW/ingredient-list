@@ -6,6 +6,7 @@
 @import 'mixins/center';
 
 //Modules
+@import 'modules/button';
 @import 'modules/card';
 @import 'modules/modal';
 @import 'modules/select';
@@ -15,7 +16,6 @@
 
 .container {
 	background: #f8f8f8;
-	padding-bottom: 20%;
 }
 
 .search {

@@ -20,17 +20,36 @@ ul {
 	list-style: none;
 }
 
+a.router-link-exact-active {
+	border-bottom: 2px solid;
+}
+
+.container {
+	clear: both;
+}
+
+.header-wrapper {
+	padding: 40px;
+}
+
+.navbar-nav a:hover {
+	border-bottom: 2px solid;
+}
+
+.navbar {
+	width: 100%;
+}
+
+nav .navbar .navbar-nav ul {
+	width: 20%;
+}
+
 .table tr {
 	border-bottom: 2px solid $darkBlue;
 }
 
 .table tr td, .table tr th {
   	padding: 5px;
-}
-
-nav li a {
-	clear: left;
-	text-align: center;
 }
 
 @media only screen and (max-width : 720px) {
