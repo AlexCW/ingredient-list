@@ -5,7 +5,7 @@
         <div class="pantry-lookup">
               <ul class="list-group list-group-flush">
                   <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
-                      <lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></lookahead>
+                      <Lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></Lookahead>
                       <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
                       <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
                   </li>
@@ -13,7 +13,9 @@
         </div>
     </div>
     <div class="pantry-description">
-        <p class="card-text">Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.</p>
+        <p class="card-text">
+            Add ingredients to your ingredients list and we will do our best to suggets you the best recipes for your pantry of ingredients.
+        </p>
     </div>
     <div class="pantry-filters">
         <div class="pantry-filters-row">
@@ -29,9 +31,7 @@
             <div class="col-lg-3">
                 <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
             </div>
-        </div>
-        <div class="pantry-filters-row">
-            <div class="col-lg-3">
+            <div class="col-lg-12">
                 <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
             </div>
         </div>
@@ -58,6 +58,7 @@ import vSelect from 'vue-select'
 import auth from '../auth'
 import config from '../config/pantry'
 
+//  chanhge to environment variable
 const API_URL = 'http://api.eataway.co.uk/'
 
 export default {
@@ -96,15 +97,16 @@ export default {
     addRow: function (index, e) {
       if (this.ingredients.length >= 20) {
         this.alert = 'You can have a maximum of twenty ingredients in your list.'
+        return false
       }
       this.ingredients.splice(index + 1, 0, { text: { id: '', name: '' } })
     },
     removeRow: function (index, e) {
-      if (this.ingredients.length > 1) {
-        this.ingredients.splice(index, 1)
-      } else {
+      if (this.ingredients.length <= 0) {
         this.alert = 'You must have at least one ingredient in your list.'
+        return false
       }
+      this.ingredients.splice(index, 1)
     },
     formatOptions: function (options) {
       return options.data.map(option => option.attributes.name)
@@ -116,7 +118,9 @@ export default {
         this.$http.post(this.src, this.buildRecipeOptions()).then((response) => {
           if (response.data.data.length === 0) {
             that.alert = 'There are currently no recipes'
+            return false
           }
+          that.alert = ''
           that.recipes = response.data.data
           that.included = response.data.included
         }, (response) => {
@@ -171,16 +175,6 @@ export default {
         })
       } else {
         return callback(that.options)
-      }
-    }
-  },
-  watch: {
-    ingredients: {
-      deep: true,
-      handler: function (ingredients) {
-        if (ingredients.length > 1) {
-          this.alert = ''
-        }
       }
     }
   }
