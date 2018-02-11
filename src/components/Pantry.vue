@@ -56,6 +56,7 @@ import Lookahead from './Lookahead.vue'
 import Recipe from './Recipe.vue'
 import vSelect from 'vue-select'
 import auth from '../auth'
+import config from '../config/pantry'
 
 const API_URL = 'http://api.eataway.co.uk/'
 
@@ -63,7 +64,7 @@ export default {
   template: '#ingredients',
   components: { 'lookahead': Lookahead, 'recipe': Recipe, 'vSelect': vSelect },
   data: function () {
-    return {
+    return Object.assign(config, {
       alert: '',
       ingredients: [{
         text: {
@@ -78,13 +79,8 @@ export default {
       myIngredients: [],
       cookingTime: '',
       prepTime: '',
-      difficulty: '',
-      difficulties: [
-        {value: 'easy', label: 'Easy'}, {value: 'medium', label: 'Medium'}, {value: 'hard', label: 'Hard'}
-      ],
-      cuisines: [],
-      tags: []
-    }
+      difficulty: ''
+    })
   },
   created: function () {
     var that = this
