@@ -29,9 +29,6 @@ export default {
   },
   logout (context) {
     window.localStorage.removeItem('token')
-    context.$store.dispatch('flash/flash', {type: 'success', message: 'You have successfully logged out', active: true}).then(() => {
-      context.$router.push('/')
-    })
   },
   clearErrors (context) {
     for (var field in context.fields) {

@@ -7,9 +7,11 @@ import store from './store'
 import axios from 'axios/index.js'
 
 import App from './App'
-import Pantry from './components/Pantry.vue'
+import Favourites from './components/Favourites.vue'
 import Login from './components/Login.vue'
+import Pantry from './components/Pantry.vue'
 import Signup from './components/Signup.vue'
+import auth from './auth'
 
 import './styles/app.scss'
 
@@ -24,10 +26,23 @@ const Hello = { template: '<div>home</div>' }
 export const router = new VueRouter({
   routes: [
     // dynamic segments start with a colon
-    { path: '/', component: Hello },
+    {
+      path: '/',
+      component: Hello
+    },
     {
       path: '/pantry',
       component: Pantry,
+      beforeEnter: (to, from, next) => {
+        if (!store.state.auth.isLoggedIn) {
+          return false
+        }
+        next()
+      }
+    },
+    {
+      path: '/favourites',
+      component: Favourites,
       beforeEnter: (to, from, next) => {
         if (!store.state.auth.isLoggedIn) {
           return false
@@ -45,6 +60,16 @@ export const router = new VueRouter({
         next()
       }
     },
+    {
+      path: '/logout',
+      beforeEnter: (to, from, next) => {
+        if (store.state.auth.isLoggedIn) {
+          auth.logout(router.app)
+          router.app.$store.dispatch('flash/flash', {type: 'success', message: 'You have successfully logged out', active: true})
+        }
+        next('/')
+      }
+    },
     { path: '/signup', component: Signup },
     { path: '*', redirect: '/' }  //  Catch all redirect
   ]
@@ -60,6 +85,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
+  console.log(store.getters['flash/flash'])
   if (store.getters['flash/flash'].active && !store.getters['flash/flash'].visible) {
     store.dispatch('flash/flash', Object.assign(store.getters['flash/flash'], {visible: true, active: false}))
   } else {
