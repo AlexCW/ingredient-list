@@ -53,6 +53,14 @@
   cursor: pointer;
 }
 
+.card .card-content .card-details .card-details-inner .icons {
+  padding: 5px;
+}
+
+.card .card-content .card-details .card-details-inner .icons > div{
+  display: inline;
+}
+
 .card .card-image {
   height: 200px;
   background-size: cover;

@@ -1,23 +1,29 @@
 <template>
-  <div id="recipe" class="col-sm-3">
+<div id="recipe" class="col-sm-6 col-md-4">
     <div class="card">
-      <div class="card-body">
-              <div class="card-block">
+        <div class="card-content">
+            <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + recipe.upload + ')' }" v-on:click="viewImage()" alt="Card image cap"></div>
+            <h4>{{recipe.attributes.name}}</h4>
 
-        <img class="card-img-top img-thumbnail rounded" v-bind:src="recipe.upload" alt="Card image cap" v-on:click="viewImage()">
+            <div class="card-details">
+                <div class="card-details-inner">
+                    <div class="view-more">
+                        <a v-if="recipe.attributes['external-url']" v-bind:href="recipe.attributes['external-url']" target="_blank" class="button">View Recipe</a>
+                    </div>
+                    <div class="icons">
+                        <div class="time">
+                            <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['prep-time']}}</span>
+                            <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['cooking-time']}}</span>
+                        </div>
+                        <div class="counts">
+                            <span v-if="recipe.relationships.ingredients.data.length" class="card-link" v-on:click="showIngredients()"><i class="glyphicon glyphicon-grain"></i>&nbsp;{{recipe.relationships.ingredients.data.length}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-          <div class="card-block">
-            <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['prep-time']}}</span>
-            <span class="card-link"><i class="glyphicon glyphicon-time"></i>&nbsp;{{recipe.attributes['cooking-time']}}</span>
-            <span v-if="recipe.relationships.ingredients.data.length" class="card-link" v-on:click="showIngredients()"><i class="glyphicon glyphicon-grain">{{recipe.relationships.ingredients.data.length}}</i>&nbsp;</span>
-          </div>
-        <div class="card-block">
-          <h4 class="card-title">{{recipe.attributes.name}}</h4>
-          <a v-if="recipe.attributes['external-url']" v-bind:href="recipe.attributes['external-url']" target="_blank" class="btn btn-primary">View Recipe</a>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 </template>
 <script>
 import api from '../helpers/api'
@@ -59,7 +65,7 @@ export default {
       this.modal.resetProperties()
       this.modal.table.headers = ['Name', 'Amount']
       this.modal.table.rows = this.buildIngredientsTable()
-      this.$root.showModal = true
+      this.$root.showModal = true // vuex?
       this.modal.title = 'Ingredients'
     },
     buildIngredientsTable: function () {
