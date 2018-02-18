@@ -8,7 +8,7 @@
             <div class="card-details">
                 <div class="card-details-inner">
                     <div class="view-more">
-                        <a v-if="recipe.attributes['external-url']" v-bind:href="recipe.attributes['external-url']" target="_blank" class="button">View Recipe</a>
+                        <a v-if="recipe.attributes['external-url']" v-bind:href="recipe.attributes['external-url']" target="_blank" rel="noopener" class="button">View Recipe</a>
                     </div>
                     <div class="icons">
                         <div class="time">
