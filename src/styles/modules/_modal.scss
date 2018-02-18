@@ -38,6 +38,7 @@
   max-height: 500px;
   overflow-y: auto;
   vertical-align: middle;
+  padding: 0;
 }
 
 .modal-body img {
@@ -80,4 +81,10 @@
     content: "\e089";
     color: green;
     float: right;
+}
+
+@media only screen and (max-width : 720px) {
+  .modal-container {
+    width: 100% !important;
+  }
 }
