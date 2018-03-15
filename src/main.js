@@ -4,7 +4,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store'
 
-import axios from 'axios/index.js'
+import axios from 'axios'
 
 import App from './App'
 import Favourites from './components/Favourites.vue'

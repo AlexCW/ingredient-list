@@ -29,7 +29,7 @@
                 <v-select v-model="difficulty" placeholder="Select Difficulty" :options="difficulties"></v-select>
             </div>
             <div class="col-lg-3">
-                <v-select v-model="cuisine" placeholder="Select Cuisine" :options="cuisines"></v-select>
+                <v-select v-model="cuisine" placeholder="Select Cuisine" :options="getCuisines"></v-select>
             </div>
             <div class="col-lg-12">
                 <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
@@ -57,6 +57,7 @@ import Recipe from './Recipe.vue'
 import vSelect from 'vue-select'
 import auth from '../auth'
 import config from '../config/pantry'
+import { cuisines } from '../api/cuisines'
 
 //  chanhge to environment variable
 const API_URL = 'http://api.eataway.co.uk/'
@@ -83,11 +84,15 @@ export default {
       difficulty: ''
     })
   },
+  computed: {
+    getCuisines () {
+      return this.$store.getters['cuisines/cuisinesList']
+    }
+  },
   created: function () {
     var that = this
-    this.$http.get(API_URL + 'cuisines?sort=name&direction=asc').then((response) => {
-      that.cuisines = response.data.data.map(cuisine => ({value: cuisine.id, label: cuisine.attributes.name}))
-    })
+
+    cuisines.getCuisines()
 
     this.$http.get(API_URL + 'tags?sort=name&direction=asc').then((response) => {
       that.tags = response.data.data.map(tag => ({value: tag.id, label: tag.attributes.name}))

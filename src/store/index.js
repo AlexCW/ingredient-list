@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { flashModule } from './modules/flash'
 import { authModule } from './modules/auth'
+import { cuisinesModule } from './modules/cuisines'
+import { flashModule } from './modules/flash'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    flash: flashModule,
-    auth: authModule
+    auth: authModule,
+    cuisines: cuisinesModule,
+    flash: flashModule
   }
 })
