@@ -66,21 +66,19 @@ const API_URL = 'http://api.eataway.co.uk/'
 export default {
   template: '#ingredients',
   components: { Lookahead, Recipe, vSelect },
-  data: function () {
-    return Object.assign(config, {
-      ingredients: [{
-        text: {
-          id: '',
-          name: ''
-        }
-      }],
-      options: {},
-      myIngredients: [],
-      cookingTime: '',
-      prepTime: '',
-      difficulty: ''
-    })
-  },
+  data: () => Object.assign(config, {
+    ingredients: [{
+      text: {
+        id: '',
+        name: ''
+      }
+    }],
+    options: {},
+    myIngredients: [],
+    cookingTime: '',
+    prepTime: '',
+    difficulty: ''
+  }),
   computed: {
     getCuisines () {
       return this.$store.getters['cuisines/cuisinesList']
@@ -92,12 +90,12 @@ export default {
       return this.$store.getters['recipes/recipes']
     }
   },
-  created: function () {
+  created () {
     cuisines.getCuisines()
     tags.getTags()
   },
   methods: {
-    addRow: function (index, e) {
+    addRow (index, e) {
       if (this.ingredients.length >= 20) {
         this.$store.dispatch('flash/flash', {type: 'danger', message: 'You can have a maximum of twenty ingredients in your list.', visible: true, active: true})
         return false
@@ -105,7 +103,7 @@ export default {
       this.$store.dispatch('flash/flash', {visible: false})
       this.ingredients.splice(index + 1, 0, { text: { id: '', name: '' } })
     },
-    removeRow: function (index, e) {
+    removeRow (index, e) {
       if (this.ingredients.length <= 0) {
         this.$store.dispatch('flash/flash', {type: 'danger', message: 'You must have at least one ingredient in your list.', visible: true, active: true})
         return false
@@ -113,16 +111,16 @@ export default {
       this.$store.dispatch('flash/flash', {visible: false})
       this.ingredients.splice(index, 1)
     },
-    searchRecipes: function () {
+    searchRecipes () {
       if (typeof this.options.data !== undefined) {
         this.prepareSearch()
         recipes.getSuggestedRecipes(this.buildRecipeOptions())
       }
     },
-    formatOptions: function (options) {
+    formatOptions (options) {
       return options.data.map(option => option.attributes.name)
     },
-    prepareSearch: function () {
+    prepareSearch () {
       var options = this.options.data.reduce((reduceObject, ingredient) => {
         var obj = reduceObject.hasOwnProperty('attributes') ? {} : reduceObject
         obj[ingredient.attributes.name] = ingredient.id
@@ -133,7 +131,7 @@ export default {
                                            .filter(ingredient => ingredient !== undefined)
       this.recipes = {}
     },
-    buildRecipeOptions: function () {
+    buildRecipeOptions () {
       var options = {'ingredients': this.myIngredients}
 
       if (this.difficulty) {
@@ -158,7 +156,7 @@ export default {
 
       return options
     },
-    getOptions: function (callback) {
+    getOptions (callback) {
       var that = this
       if (!this.options.hasOwnProperty('data')) {
         this.$http.get(API_URL + 'ingredients', {}, {
