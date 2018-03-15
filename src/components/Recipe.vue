@@ -28,19 +28,19 @@
 <script>
 import api from '../helpers/api'
 export default {
-  created: function () {
+  created () {
     this.recipe.upload = this.getUploads('large')
   },
-  mounted: function () {
+  mounted () {
     this.recipe.upload = this.getUploads('large')
   },
   computed: {
-    modal: function () {
+    modal () {
       return this.$root.$children.filter(child => child.type === 'modal').pop()
     }
   },
   methods: {
-    getUploads: function (size) {
+    getUploads (size) {
       var ids = api.getRelationshipIdentifiers(this.recipe, 'uploads')
 
       var uploads = api.getIncludedData(this.$store.getters['uploads/uploads'], ids)
@@ -51,7 +51,7 @@ export default {
         return ''
       }
     },
-    getIngredients: function () {
+    getIngredients () {
       var ids = api.getRelationshipIdentifiers(this.recipe, 'ingredients')
       var ingredients = api.getIncludedData(this.$store.getters['ingredients/ingredients'], ids)
 
@@ -59,7 +59,7 @@ export default {
         this.recipe.ingredients = ingredients
       }
     },
-    showIngredients: function () {
+    showIngredients () {
       this.getIngredients()
       this.modal.resetProperties()
       this.modal.table.headers = ['Name', 'Amount']
@@ -67,7 +67,7 @@ export default {
       this.$root.showModal = true // vuex?
       this.modal.title = 'Ingredients'
     },
-    buildIngredientsTable: function () {
+    buildIngredientsTable () {
       var ingredients = {}
       var userIngredients = this.ingredients
       this.recipe.ingredients.forEach(ingredient => {
@@ -80,7 +80,7 @@ export default {
       })
       return ingredients
     },
-    viewImage: function () {
+    viewImage () {
       this.modal.resetProperties()
       this.$root.showModal = true
       this.modal.title = this.recipe.attributes.name

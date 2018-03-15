@@ -42,18 +42,18 @@ export default {
     }
   },
   computed: {
-    modalHasImage: function () {
+    modalHasImage () {
       return this.image.hasOwnProperty('src')
     }
   },
   methods: {
-    resetProperties: function () {
+    resetProperties () {
       Object.assign(this.$data, this.$options.data.call(this))
     },
-    setClassName: function (style) {
+    setClassName (style) {
       return style
     },
-    closeModal: function () {
+    closeModal () {
       this.$root.showModal = false
     }
   },

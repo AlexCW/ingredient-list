@@ -7,10 +7,10 @@ import Typeahead from 'typeahead.js'
 
 export default {
   components: [Typeahead],
-  mounted: function () {
+  mounted () {
     this.getOptions()
   },
-  data: function () {
+  data () {
     return {
       options: [],
       match: ''
@@ -18,7 +18,7 @@ export default {
   },
   props: ['src'],
   methods: {
-    getOptions: function () {
+    getOptions () {
       var that = this
       this.$parent.getOptions(function (data) {
         if (that.$parent.hasOwnProperty('formatOptions')) {
@@ -29,11 +29,11 @@ export default {
         that.bindTypeahead(that.$el)
       })
     },
-    getTemplate: function (match) {
+    getTemplate (match) {
       this.match = match
       return '<div><h2>' + match + '</h2></div>'
     },
-    substringMatcher: function (strs) {
+    substringMatcher (strs) {
       return function findMatches (q, cb) {
         var matches = []
 
@@ -50,7 +50,7 @@ export default {
         cb(matches)
       }
     },
-    bindTypeahead: function (el) {
+    bindTypeahead (el) {
       var that = this
 
       window.jQuery(el).typeahead({
