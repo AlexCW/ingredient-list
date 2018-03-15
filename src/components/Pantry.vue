@@ -32,7 +32,7 @@
                 <v-select v-model="cuisine" placeholder="Select Cuisine" :options="getCuisines"></v-select>
             </div>
             <div class="col-lg-12">
-                <v-select v-model="tag" placeholder="Select Tags" multiple :options="tags"></v-select>
+                <v-select v-model="tag" placeholder="Select Tags" multiple :options="getTags"></v-select>
             </div>
         </div>
     </div>
@@ -58,6 +58,7 @@ import vSelect from 'vue-select'
 import auth from '../auth'
 import config from '../config/pantry'
 import { cuisines } from '../api/cuisines'
+import { tags } from '../api/tags'
 
 //  chanhge to environment variable
 const API_URL = 'http://api.eataway.co.uk/'
@@ -87,16 +88,14 @@ export default {
   computed: {
     getCuisines () {
       return this.$store.getters['cuisines/cuisinesList']
+    },
+    getTags () {
+      return this.$store.getters['tags/tagsList']
     }
   },
   created: function () {
-    var that = this
-
     cuisines.getCuisines()
-
-    this.$http.get(API_URL + 'tags?sort=name&direction=asc').then((response) => {
-      that.tags = response.data.data.map(tag => ({value: tag.id, label: tag.attributes.name}))
-    })
+    tags.getTags()
   },
   methods: {
     addRow: function (index, e) {
