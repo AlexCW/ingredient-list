@@ -14,9 +14,6 @@ export const ingredientsModule = {
   actions: {
     setIngredients: ({ commit }, payload) => {
       commit('setIngredients', payload.ingredients)
-    },
-    setIncludedData: ({ commit }, payload) => {
-      commit('setIngredients', payload.ingredients)
     }
   }
 }

@@ -14,9 +14,6 @@ export const uploadsModule = {
   actions: {
     setUploads: ({ commit }, payload) => {
       commit('setUploads', payload.uploads)
-    },
-    setIncludedData: ({ commit }, payload) => {
-      commit('setUploads', payload.uploads)
     }
   }
 }
