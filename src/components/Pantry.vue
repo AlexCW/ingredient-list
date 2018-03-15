@@ -112,9 +112,6 @@ export default {
       }
       this.ingredients.splice(index, 1)
     },
-    formatOptions: function (options) {
-      return options.data.map(option => option.attributes.name)
-    },
     searchRecipes: function () {
       var that = this
       if (typeof this.options.data !== undefined) {
