@@ -1,6 +1,6 @@
 export default {
   getIncludedData: function (context, ids) {
-    context.included.map(include => {
+    context.map(include => {
       var indexId = ids.indexOf(include.id)
       if (indexId > -1) {
         ids[indexId] = include

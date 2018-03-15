@@ -41,12 +41,11 @@
     </div>
   
     <div class="pantry-recipes">
-        <div class="recipes" v-if="recipes.length">
-          <template v-for="(recipe, index) in recipes">
-              <recipe keep-alive v-bind:recipe="recipe" v-bind:included="included" v-bind:ingredients="myIngredients"></recipe>
+        <div class="recipes" v-if="getRecipes">
+          <template v-for="(recipe, index) in getRecipes">
+              <recipe keep-alive v-bind:recipe="recipe" v-bind:ingredients="myIngredients"></recipe>
           </template>
         </div>
-        <p v-if="alert" class="alert alert-danger">{{alert}}</p>
     </div>
 </div>
 </template>
@@ -58,6 +57,7 @@ import vSelect from 'vue-select'
 import auth from '../auth'
 import config from '../config/pantry'
 import { cuisines } from '../api/cuisines'
+import { recipes } from '../api/recipes'
 import { tags } from '../api/tags'
 
 //  chanhge to environment variable
@@ -68,17 +68,13 @@ export default {
   components: { Lookahead, Recipe, vSelect },
   data: function () {
     return Object.assign(config, {
-      alert: '',
       ingredients: [{
         text: {
           id: '',
           name: ''
         }
       }],
-      src: API_URL + 'recipes/ingredients/suggest',
       options: {},
-      recipes: {},
-      included: {},
       myIngredients: [],
       cookingTime: '',
       prepTime: '',
@@ -91,6 +87,9 @@ export default {
     },
     getTags () {
       return this.$store.getters['tags/tagsList']
+    },
+    getRecipes () {
+      return this.$store.getters['recipes/recipes']
     }
   },
   created: function () {
@@ -100,33 +99,28 @@ export default {
   methods: {
     addRow: function (index, e) {
       if (this.ingredients.length >= 20) {
-        this.alert = 'You can have a maximum of twenty ingredients in your list.'
+        this.$store.dispatch('flash/flash', {type: 'danger', message: 'You can have a maximum of twenty ingredients in your list.', visible: true, active: true})
         return false
       }
+      this.$store.dispatch('flash/flash', {visible: false})
       this.ingredients.splice(index + 1, 0, { text: { id: '', name: '' } })
     },
     removeRow: function (index, e) {
       if (this.ingredients.length <= 0) {
-        this.alert = 'You must have at least one ingredient in your list.'
+        this.$store.dispatch('flash/flash', {type: 'danger', message: 'You must have at least one ingredient in your list.', visible: true, active: true})
         return false
       }
+      this.$store.dispatch('flash/flash', {visible: false})
       this.ingredients.splice(index, 1)
     },
     searchRecipes: function () {
-      var that = this
       if (typeof this.options.data !== undefined) {
         this.prepareSearch()
-        this.$http.post(this.src, this.buildRecipeOptions()).then((response) => {
-          if (response.data.data.length === 0) {
-            that.alert = 'There are currently no recipes'
-            return false
-          }
-          that.alert = ''
-          that.recipes = response.data.data
-          that.included = response.data.included
-        }, (response) => {
-        })
+        recipes.getSuggestedRecipes(this.buildRecipeOptions())
       }
+    },
+    formatOptions: function (options) {
+      return options.data.map(option => option.attributes.name)
     },
     prepareSearch: function () {
       var options = this.options.data.reduce((reduceObject, ingredient) => {

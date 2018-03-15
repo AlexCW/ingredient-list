@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-content">
             <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + recipe.upload + ')' }" v-on:click="viewImage()" alt="Card image cap"></div>
-            <h4>{{recipe.attributes.name}}</h4>
+            <h2>{{recipe.attributes.name}}</h2>
 
             <div class="card-details">
                 <div class="card-details-inner">
@@ -43,7 +43,7 @@ export default {
     getUploads: function (size) {
       var ids = api.getRelationshipIdentifiers(this.recipe, 'uploads')
 
-      var uploads = api.getIncludedData(this, ids)
+      var uploads = api.getIncludedData(this.$store.getters['uploads/uploads'], ids)
 
       if (uploads.length > 0) {
         return uploads[0]['attributes']['url'] + '/' + size + '.jpg'
@@ -53,8 +53,7 @@ export default {
     },
     getIngredients: function () {
       var ids = api.getRelationshipIdentifiers(this.recipe, 'ingredients')
-
-      var ingredients = api.getIncludedData(this, ids)
+      var ingredients = api.getIncludedData(this.$store.getters['ingredients/ingredients'], ids)
 
       if (ingredients.length > 0) {
         this.recipe.ingredients = ingredients
@@ -91,7 +90,7 @@ export default {
       this.modal.containerStyle = {width: '40%'}
     }
   },
-  props: ['recipe', 'included', 'ingredients'],
+  props: ['recipe', 'ingredients'],
   template: '#recipes'
 }
 </script>
