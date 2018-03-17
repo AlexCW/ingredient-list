@@ -104,7 +104,7 @@ export default {
       this.ingredients.splice(index + 1, 0, { text: { id: '', name: '' } })
     },
     removeRow (index, e) {
-      if (this.ingredients.length <= 0) {
+      if (this.ingredients.length <= 1) {
         this.$store.dispatch('flash/flash', {type: 'danger', message: 'You must have at least one ingredient in your list.', visible: true, active: true})
         return false
       }
