@@ -16,7 +16,6 @@ export default {
       match: ''
     }
   },
-  props: ['src'],
   methods: {
     getOptions () {
       var that = this

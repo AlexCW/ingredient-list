@@ -10,7 +10,7 @@ export const recipes = {
       }
 
       store.dispatch('recipes/setRecipes', { recipes: response.data.data })
-      store.dispatch('ingredients/setIngredients', { ingredients: response.data.included.filter(include => include.type === 'ingredient') })
+      store.dispatch('recipes/setIngredients', { ingredients: response.data.included.filter(include => include.type === 'ingredient') })
       store.dispatch('uploads/setUploads', { uploads: response.data.included.filter(include => include.type === 'upload') })
     }, (response) => {
     })

@@ -5,7 +5,7 @@
         <div class="pantry-lookup">
               <ul class="list-group list-group-flush">
                   <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
-                      <Lookahead v-model="ingredient.text.id" src="http://api.eataway.co.uk/ingredients"></Lookahead>
+                      <Lookahead v-model="ingredient[index]"></Lookahead>
                       <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
                       <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
                   </li>
@@ -54,27 +54,18 @@
 import Lookahead from './Lookahead.vue'
 import Recipe from './Recipe.vue'
 import vSelect from 'vue-select'
-import auth from '../auth'
 import config from '../config/pantry'
 import { cuisines } from '../api/cuisines'
+import { ingredients } from '../api/ingredients'
 import { recipes } from '../api/recipes'
 import { tags } from '../api/tags'
-
-//  chanhge to environment variable
-const API_URL = 'http://api.eataway.co.uk/'
 
 export default {
   template: '#ingredients',
   components: { Lookahead, Recipe, vSelect },
   data: () => Object.assign(config, {
-    ingredients: [{
-      text: {
-        id: '',
-        name: ''
-      }
-    }],
+    ingredients: [{}],
     options: {},
-    myIngredients: [],
     cookingTime: '',
     prepTime: '',
     difficulty: ''
@@ -83,11 +74,16 @@ export default {
     getCuisines () {
       return this.$store.getters['cuisines/cuisinesList']
     },
+    getRecipes () {
+      return this.$store.getters['recipes/recipes']
+    },
     getTags () {
       return this.$store.getters['tags/tagsList']
     },
-    getRecipes () {
-      return this.$store.getters['recipes/recipes']
+    myIngredients () {
+      if (this.ingredients) {
+        return this.ingredients.map(selectedIngredient => this.$store.getters['ingredients/ingredientsList'][selectedIngredient[0]])
+      }
     }
   },
   created () {
@@ -101,7 +97,7 @@ export default {
         return false
       }
       this.$store.dispatch('flash/flash', {visible: false})
-      this.ingredients.splice(index + 1, 0, { text: { id: '', name: '' } })
+      this.ingredients.splice(index + 1, 0, {})
     },
     removeRow (index, e) {
       if (this.ingredients.length <= 1) {
@@ -121,14 +117,6 @@ export default {
       return options.data.map(option => option.attributes.name)
     },
     prepareSearch () {
-      var options = this.options.data.reduce((reduceObject, ingredient) => {
-        var obj = reduceObject.hasOwnProperty('attributes') ? {} : reduceObject
-        obj[ingredient.attributes.name] = ingredient.id
-        return obj
-      })
-
-      this.myIngredients = this.ingredients.map(ingredient => options[ingredient.text.id])
-                                           .filter(ingredient => ingredient !== undefined)
       this.recipes = {}
     },
     buildRecipeOptions () {
@@ -159,13 +147,7 @@ export default {
     getOptions (callback) {
       var that = this
       if (!this.options.hasOwnProperty('data')) {
-        this.$http.get(API_URL + 'ingredients', {}, {
-          headers: auth.getAuthHeader()
-        }).then((response) => {
-          that.options = response.data
-          return callback(response.data)
-        }, (response) => {
-        })
+        return ingredients.getIngredients(callback)
       } else {
         return callback(that.options)
       }

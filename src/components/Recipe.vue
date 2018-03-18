@@ -53,7 +53,7 @@ export default {
     },
     getIngredients () {
       var ids = api.getRelationshipIdentifiers(this.recipe, 'ingredients')
-      var ingredients = api.getIncludedData(this.$store.getters['ingredients/ingredients'], ids)
+      var ingredients = api.getIncludedData(this.$store.getters['recipes/ingredients'], ids)
 
       if (ingredients.length > 0) {
         this.recipe.ingredients = ingredients
