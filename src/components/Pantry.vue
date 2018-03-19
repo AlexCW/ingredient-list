@@ -109,14 +109,14 @@ export default {
     },
     searchRecipes () {
       if (typeof this.options.data !== undefined) {
-        this.prepareSearch()
+        this.clearExistingRecipes()
         recipes.getSuggestedRecipes(this.buildRecipeOptions())
       }
     },
     formatOptions (options) {
       return options.data.map(option => option.attributes.name)
     },
-    prepareSearch () {
+    clearExistingRecipes () {
       this.recipes = {}
     },
     buildRecipeOptions () {
