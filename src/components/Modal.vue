@@ -54,7 +54,7 @@ export default {
       return style
     },
     closeModal () {
-      this.$root.showModal = false
+      this.$store.dispatch('global/setModal', { modal: { show: false } })
     }
   },
   tag: 'modal'

@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import { authModule } from './modules/auth'
 import { cuisinesModule } from './modules/cuisines'
 import { flashModule } from './modules/flash'
+import { globalModule } from './modules/global'
+
 import { ingredientsModule } from './modules/ingredients'
 import { recipesModule } from './modules/recipes'
 import { tagsModule } from './modules/tags'
@@ -15,6 +17,7 @@ export default new Vuex.Store({
     auth: authModule,
     cuisines: cuisinesModule,
     flash: flashModule,
+    global: globalModule,
     ingredients: ingredientsModule,
     recipes: recipesModule,
     tags: tagsModule,

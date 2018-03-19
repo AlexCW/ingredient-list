@@ -64,7 +64,7 @@ export default {
       this.modal.resetProperties()
       this.modal.table.headers = ['Name', 'Amount']
       this.modal.table.rows = this.buildIngredientsTable()
-      this.$root.showModal = true // vuex?
+      this.$store.dispatch('global/setModal', { 'modal': { show: true } })
       this.modal.title = 'Ingredients'
     },
     buildIngredientsTable () {
@@ -82,7 +82,7 @@ export default {
     },
     viewImage () {
       this.modal.resetProperties()
-      this.$root.showModal = true
+      this.$store.dispatch('global/setModal', { 'modal': { show: true } })
       this.modal.title = this.recipe.attributes.name
       this.modal.image = {
         'src': this.getUploads('largest')

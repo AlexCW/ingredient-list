@@ -35,11 +35,9 @@
       },
       isLoggedIn () {
         return this.$store.state.auth.isLoggedIn
-      }
-    },
-    data: function () {
-      return {
-        showModal: false
+      },
+      showModal () {
+        return this.$store.getters['global/modal'].show
       }
     }
   }
