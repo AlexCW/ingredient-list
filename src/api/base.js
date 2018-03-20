@@ -1,7 +1,12 @@
 import axios from 'axios'
-import auth from '../auth'
+
+const getAuthHeader = function () {
+  return {
+    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+  }
+}
 
 export const http = axios.create({
   baseURL: `http://api.eataway.co.uk/`,
-  headers: auth.getAuthHeader()
+  headers: getAuthHeader()
 })

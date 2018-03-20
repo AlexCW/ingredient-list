@@ -60,6 +60,9 @@ import { ingredients } from '../api/ingredients'
 import { recipes } from '../api/recipes'
 import { tags } from '../api/tags'
 
+const MIN_INGREDIENTS = 1
+const MAX_INGREDIENTS = 20
+
 export default {
   template: '#ingredients',
   components: { Lookahead, Recipe, vSelect },
@@ -92,16 +95,16 @@ export default {
   },
   methods: {
     addRow (index, e) {
-      if (this.ingredients.length >= 20) {
-        this.$store.dispatch('flash/flash', {type: 'danger', message: 'You can have a maximum of twenty ingredients in your list.', visible: true, active: true})
+      if (this.ingredients.length >= MAX_INGREDIENTS) {
+        this.$store.dispatch('flash/flash', {type: 'danger', message: 'You can have a maximum of ' + MAX_INGREDIENTS + ' ingredients in your list.', visible: true, active: true})
         return false
       }
       this.$store.dispatch('flash/flash', {visible: false})
       this.ingredients.splice(index + 1, 0, {})
     },
     removeRow (index, e) {
-      if (this.ingredients.length <= 1) {
-        this.$store.dispatch('flash/flash', {type: 'danger', message: 'You must have at least one ingredient in your list.', visible: true, active: true})
+      if (this.ingredients.length <= MIN_INGREDIENTS) {
+        this.$store.dispatch('flash/flash', {type: 'danger', message: 'You must have at least ' + MIN_INGREDIENTS + ' ingredient in your list.', visible: true, active: true})
         return false
       }
       this.$store.dispatch('flash/flash', {visible: false})
