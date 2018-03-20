@@ -2,7 +2,7 @@
 <div id="recipe" class="col-sm-6 col-md-4">
     <div class="card">
         <div class="card-content">
-            <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + recipe.upload + ')' }" v-on:click="viewImage()" alt="Card image cap"></div>
+            <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + this.recipe.upload + ')' }" v-on:click="viewImage()" alt="Card image cap"></div>
             <h2>{{recipe.attributes.name}}</h2>
 
             <div class="card-details">
