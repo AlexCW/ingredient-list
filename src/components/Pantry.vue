@@ -5,7 +5,7 @@
         <div class="pantry-lookup">
               <ul class="list-group list-group-flush">
                   <li v-for="(ingredient, index) in ingredients" class="list-group-ingredient">
-                      <Lookahead v-model="ingredient[index]"></Lookahead>
+                      <Lookahead v-model="ingredient[0]"></Lookahead>
                       <a class="btn btn-success" v-on:click="addRow(index, $event)">+</a>
                       <a class="btn btn-danger" v-on:click="removeRow(index, $event)">-</a>
                   </li>
@@ -43,7 +43,7 @@
     <div class="pantry-recipes">
         <div class="recipes" v-if="getRecipes">
           <template v-for="(recipe, index) in getRecipes">
-              <recipe keep-alive v-bind:recipe="recipe" v-bind:ingredients="myIngredients"></recipe>
+              <recipe keep-alive v-bind:recipe="recipe" v-bind:ingredients="myIngredients()"></recipe>
           </template>
         </div>
     </div>
@@ -82,11 +82,6 @@ export default {
     },
     getTags () {
       return this.$store.getters['tags/tagsList']
-    },
-    myIngredients () {
-      if (this.ingredients) {
-        return this.ingredients.map(selectedIngredient => this.$store.getters['ingredients/ingredientsList'][selectedIngredient[0]])
-      }
     }
   },
   created () {
@@ -122,8 +117,13 @@ export default {
     clearExistingRecipes () {
       this.recipes = {}
     },
+    myIngredients () {
+      if (this.ingredients) {
+        return this.ingredients.map(selectedIngredient => this.$store.getters['ingredients/ingredientsList'][selectedIngredient[0]])
+      }
+    },
     buildRecipeOptions () {
-      var options = {'ingredients': this.myIngredients}
+      var options = {'ingredients': this.myIngredients()}
 
       if (this.difficulty) {
         options['difficulty'] = this.difficulty.value
