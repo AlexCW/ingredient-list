@@ -100,10 +100,16 @@ export default {
     removeRow (index, e) {
       if (this.ingredients.length <= MIN_INGREDIENTS) {
         this.$store.dispatch('flash/flash', {type: 'danger', message: 'You must have at least ' + MIN_INGREDIENTS + ' ingredient in your list.', visible: true, active: true})
+        this.emptySelectElement(e)
+        this.ingredients = [{}]
         return false
       }
       this.$store.dispatch('flash/flash', {visible: false})
       this.ingredients.splice(index, 1)
+    },
+    emptySelectElement (e) {
+      e.srcElement.parentNode.children[0].children[1].value = null
+      e.srcElement.parentNode.children[0].children[2].innerText = null
     },
     searchRecipes () {
       if (typeof this.options.data !== undefined) {
