@@ -115,7 +115,7 @@ export default {
       return options.data.map(option => option.attributes.name)
     },
     clearExistingRecipes () {
-      this.recipes = {}
+      this.$store.dispatch('recipes/setRecipes', { recipes: {} })
     },
     myIngredients () {
       if (this.ingredients) {
