@@ -6,7 +6,6 @@
 }
 
 .tt-menu h2 {
-  font-size: 100%;
   margin: 5px;
 }
 
@@ -22,4 +21,8 @@
 .v-select .selected-tag {
   background-color: none !important;
   border: none;
+}
+
+.v-select .dropdown-toggle input[type=search] {
+  width: 10em !important;
 }
