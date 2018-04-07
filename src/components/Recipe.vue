@@ -53,6 +53,7 @@ export default {
     },
     getIngredients () {
       var ids = api.getRelationshipIdentifiers(this.recipe, 'ingredients')
+
       var ingredients = api.getIncludedData(this.$store.getters['recipes/ingredients'], ids)
 
       if (ingredients.length > 0) {
@@ -70,12 +71,15 @@ export default {
     buildIngredientsTable () {
       var ingredients = {}
       var userIngredients = this.ingredients
+
       this.recipe.ingredients.forEach(ingredient => {
         var background = userIngredients.indexOf(ingredient.id) > -1 ? 'user-has-ingredient' : ''
 
-        ingredients[ingredient.attributes.name] = {
-          style: background,
-          value: ingredient.attributes.amount + (ingredient.attributes.measurement !== 'total' ? ingredient.attributes.measurement : '')
+        if (ingredient.attributes.name) {
+          ingredients[ingredient.attributes.name] = {
+            style: background,
+            value: ingredient.attributes.amount + (ingredient.attributes.measurement !== 'total' ? ingredient.attributes.measurement : '')
+          }
         }
       })
       return ingredients
